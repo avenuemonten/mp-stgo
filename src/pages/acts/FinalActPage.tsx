@@ -60,7 +60,7 @@ export const FinalActPage: React.FC = () => {
       return {
           act_number: `FIN-${cleanInvoice.number}`,
           act_date: new Date().toISOString().split('T')[0],
-          type: 'actfinal', // 🔥 ПРОВЕРЬ: Если сервер ругается, замени 'actfinal' на 'actbr' для теста
+          type: 'actfinal', // ПРОВЕРЬ: Если сервер ругается, замени 'actfinal' на 'actbr' для теста
           
           lic: cleanInvoice.lic || '',
           owner_name: cleanInvoice.client_name || '',

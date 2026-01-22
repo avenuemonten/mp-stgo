@@ -9,7 +9,7 @@ interface ActsState {
   loadActs: (token: string, invoiceId: string) => Promise<void>;
   loadActDetails: (token: string, invoiceId: string, actId: string) => Promise<void>;
   
-  // 🔥 Изменили тип возврата на Promise<any> (вернет объект акта или null)
+  //  Изменили тип возврата на Promise<any> (вернет объект акта или null)
   saveAct: (token: string, actData: any) => Promise<any>; 
   
   clearCurrentAct: () => void;
@@ -64,7 +64,7 @@ export const useActsStore = create<ActsState>((set, get) => ({
         }
 
         set({ list: newList, currentAct: savedAct, loading: false });
-        return savedAct; // 🔥 Возвращаем сам акт!
+        return savedAct; //  Возвращаем сам акт!
       }
       set({ loading: false });
       return null;

@@ -45,7 +45,7 @@ export const ActEditPage: React.FC = () => {
     }
   }, [actId, isNew, token, id]);
 
-  // 🔥 ЗАГРУЗКА ЗАЯВКИ (даже если она выполнена)
+  // ЗАГРУЗКА ЗАЯВКИ (даже если она выполнена)
   useEffect(() => {
     const hasData = invoiceFromStore || fetchedInvoice;
     
@@ -68,14 +68,14 @@ export const ActEditPage: React.FC = () => {
     }
   }, [invoiceFromStore, fetchedInvoice, token, id]);
 
-  // 🔥 ЧИСТЫЕ ДАННЫЕ ЗАЯВКИ
+  //  ЧИСТЫЕ ДАННЫЕ ЗАЯВКИ
   const cleanInvoice = useMemo(() => {
       const raw = invoiceFromStore || fetchedInvoice;
       if (!raw) return null;
       return normalizeInvoice(raw);
   }, [invoiceFromStore, fetchedInvoice]);
 
-  // 🔥 АВТОЗАПОЛНЕНИЕ
+  //  АВТОЗАПОЛНЕНИЕ
   const initialData = useMemo(() => {
     // A. РЕДАКТИРОВАНИЕ
     if (!isNew && currentAct && Object.keys(currentAct).length > 0) {

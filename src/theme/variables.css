@@ -1,8 +1,6 @@
 /* src/theme/variables.css */
 
-/* ... (предыдущий код оставляем) ... */
-
-/* === 🔥 PREMIUM FAB BUTTON (Кнопка +) === */
+/* ===  PREMIUM FAB BUTTON (Кнопка +) === */
 .corporate-fab-button {
   --background: var(--corp-primary, #1e3a8a);
   --background-activated: var(--corp-primary-dark, #102a70);
@@ -25,7 +23,7 @@
   --box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
 }
 
-/* === 🔥 CLEAN ACTION SHEET (Меню) === */
+/* === CLEAN ACTION SHEET (Меню) === */
 /* Убираем странные вырезы, делаем чистое нижнее меню */
 ion-action-sheet.sc-ion-action-sheet-md {
   --background: white;

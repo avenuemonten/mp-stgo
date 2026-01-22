@@ -10,8 +10,8 @@ import { InvoiceAddressPage } from '../invoices/InvoiceAddressPage';
 import { LicsListPage } from '../lics/LicsListPage';
 import { SettingsPage } from '../settings/SettingsPage';
 import { ActEditPage } from '../acts/ActEditPage';
-import { ActsListPage } from '../acts/ActsListPage'; // 🔥 НОВЫЙ ИМПОРТ
-import { ActPdfViewerPage } from '../acts/ActPdfViewerPage'; // 🔥 ИМПОРТ
+import { ActsListPage } from '../acts/ActsListPage';
+import { ActPdfViewerPage } from '../acts/ActPdfViewerPage';
 
 import '../../theme/floating-tab.css';
 
@@ -26,7 +26,7 @@ export const TabsLayout: React.FC = () => {
         <Route exact path="/app/invoices/:id/acts/new/:type" component={ActEditPage} />
         <Route exact path="/app/invoices/:id/acts/:actId/pdf" component={ActPdfViewerPage} />
         
-        {/* 2. 🔥 СПИСОК АКТОВ (Исправление белого экрана) */}
+        {/* 2.СПИСОК АКТОВ (Исправление белого экрана) */}
         <Route exact path="/app/invoices/:id/acts" component={ActsListPage} />
 
 

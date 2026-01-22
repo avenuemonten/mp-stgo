@@ -23,7 +23,7 @@ export const useLicsStore = create<LicsState>((set, get) => ({
       const dataArr = Array.isArray(res?.data) ? res.data : (Array.isArray(res?.data?.data) ? res.data.data : []);
 
       if (isSuccess && Array.isArray(dataArr)) {
-        // 🔥 ФИКС: Умная фильтрация дублей. 
+        // ФИКС: Умная фильтрация дублей. 
         // Если прилетел null/undefined, не считаем их равными.
         const uniqueLics = dataArr.filter((lic: any, index: number, self: any[]) => 
             index === self.findIndex((t: any) => {
@@ -67,7 +67,7 @@ export const useLicsStore = create<LicsState>((set, get) => ({
           const isSuccess = res?.success === true || res?.error === false;
 
           if (isSuccess) {
-              // 🔥 ОБЯЗАТЕЛЬНО обновляем список с сервера
+              // ОБЯЗАТЕЛЬНО обновляем список с сервера
               await get().fetchLics(token);
               return { success: true };
           }

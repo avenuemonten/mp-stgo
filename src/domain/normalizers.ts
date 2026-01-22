@@ -17,7 +17,7 @@ export const normalizeInvoice = (inv: any) => {
     }
 
     // 2. ФИО (Смотрим types (1).ts -> поле applicant)
-    // 🔥 ВОТ ОНО: БЕРЕМ APPLICANT
+    //
     const clientName = inv.applicant || inv.Applicant || "Не указан";
 
     return {
@@ -30,7 +30,7 @@ export const normalizeInvoice = (inv: any) => {
         
         lic: String(inv.lic || "").trim(),
 
-        // 🔥 Записываем applicant в client_name для унификации
+        // Записываем applicant в client_name для унификации
         client_name: clientName,
 
         phone: String(inv.phone || "").trim(),

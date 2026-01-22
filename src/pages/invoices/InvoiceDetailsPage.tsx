@@ -88,7 +88,6 @@ export const InvoiceDetailsPage: React.FC = () => {
                     <IonIcon icon={personOutline} slot="start" color="primary" />
                     <IonLabel>
                         <p style={{fontSize: '12px', color: '#718096', fontWeight: '600'}}>АБОНЕНТ</p>
-                        {/* 🔥 ТУТ ТЕПЕРЬ ТОЧНО БУДЕТ ИМЯ (из поля applicant) */}
                         <h2 style={{fontSize: '16px', fontWeight: '700', whiteSpace: 'normal', marginTop: '4px'}}>
                             {invoice.client_name || invoice.applicant || 'Не указан'}
                         </h2>
@@ -159,7 +158,7 @@ export const InvoiceDetailsPage: React.FC = () => {
         <IonToast isOpen={showToast} message="Номер телефона не указан в заявке" duration={2000} onDidDismiss={() => setShowToast(false)} />
       </IonContent>
 
-      {/* 🔥 КНОПКА ПОДНЯТА НА 80px (над таббаром) + Z-INDEX */}
+      {/* КНОПКА ПОДНЯТА НА 80px (над таббаром) + Z-INDEX */}
       <div style={{
           position: 'absolute', 
           bottom: '120px', 

@@ -1,7 +1,7 @@
 // src/pages/invoices/InvoicesListPage.tsx
 import React, { useEffect } from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonRefresher, IonRefresherContent, IonSpinner } from '@ionic/react';
-import { useHistory } from 'react-router-dom'; // 🔥 Импорт
+import { useHistory } from 'react-router-dom';
 import { useInvoiceStore } from '../../store/invoiceStore';
 import { useAuthStore } from '../../store/authStore';
 import { InvoiceItem } from '../../components/ui/InvoiceItem';
@@ -9,7 +9,7 @@ import { InvoiceItem } from '../../components/ui/InvoiceItem';
 export const InvoicesListPage: React.FC = () => {
   const { list, loading, loadInvoices } = useInvoiceStore();
   const token = useAuthStore(s => s.token);
-  const history = useHistory(); // 🔥 Хук навигации
+  const history = useHistory(); //  Хук навигации
 
   useEffect(() => {
     if (token) loadInvoices(token);
@@ -46,7 +46,7 @@ export const InvoicesListPage: React.FC = () => {
             <InvoiceItem 
                 key={inv.id} 
                 invoice={inv} 
-                onClick={() => history.push(`/app/invoices/${inv.id}`)} // 🔥 Поехали!
+                onClick={() => history.push(`/app/invoices/${inv.id}`)} //
             />
           ))}
         </div>

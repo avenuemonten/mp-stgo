@@ -24,7 +24,7 @@ export const LicsListPage: React.FC = () => {
   const [query, setQuery] = useState('');
   const [alertInfo, setAlertInfo] = useState<{isOpen: boolean, header: string, msg: string}>({ isOpen: false, header: '', msg: '' });
   
-  // 🔥 ИЗМЕНЕНИЕ: Вместо true/false храним КОД текущего счета
+  //  ИЗМЕНЕНИЕ: Вместо true/false храним КОД текущего счета
   // null = ничего не добавляется
   // '12345' = добавляется счет 12345
   const [addingCode, setAddingCode] = useState<string | null>(null);
@@ -65,12 +65,12 @@ export const LicsListPage: React.FC = () => {
          return;
      }
 
-     setAddingCode(licCode); // 🔥 Блокируем только этот код
+     setAddingCode(licCode); // Блокируем только этот код
      
      // Передаем ВЕСЬ объект
      const result = await addLicToUser(token, lic);
      
-     setAddingCode(null); // 🔥 Разблокируем
+     setAddingCode(null); // Разблокируем
      
      if (result.success) {
          setIsSearchMode(false);
@@ -149,7 +149,7 @@ export const LicsListPage: React.FC = () => {
                     const key = lic.id || code || Math.random().toString();
                     const added = isAlreadyAdded(lic);
                     
-                    // 🔥 Проверка: крутится ли ЭТОТ КОНКРЕТНЫЙ счет?
+                    // Проверка: крутится ли ЭТОТ КОНКРЕТНЫЙ счет?
                     const isThisLoading = addingCode === code;
                     
                     return (
@@ -169,7 +169,7 @@ export const LicsListPage: React.FC = () => {
                                  <IonButton 
                                     expand="block" 
                                     onClick={() => handleSelectLic(lic)}
-                                    // 🔥 Блокируем, если ЧТО-ТО добавляется (неважно что)
+                                    // Блокируем, если ЧТО-ТО добавляется (неважно что)
                                     disabled={addingCode !== null} 
                                  >
                                      {isThisLoading ? <IonSpinner name="crescent" /> : 'Добавить этот счет'}

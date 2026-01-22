@@ -27,7 +27,7 @@ interface LicsSearchState {
   goBack: () => void;
 }
 
-// 🔥 Хелпер для удаления дублей в результатах поиска
+// Хелпер для удаления дублей в результатах поиска
 const getUniqueLics = (licsArray: any[]) => {
     if (!Array.isArray(licsArray)) return [];
     return licsArray.filter((lic, index, self) => 
@@ -106,7 +106,7 @@ export const useLicsSearchStore = create<LicsSearchState>((set, get) => ({
     
     // Частный дом (сразу л/с)
     if (item.lics && item.lics.length > 0) {
-        // 🔥 Фильтруем дубли перед сохранением в стейт
+        // Фильтруем дубли перед сохранением в стейт
         set({ lics: getUniqueLics(item.lics), step: 'lics' });
     } 
     // Многоквартирный (сначала квартиры)
@@ -118,7 +118,7 @@ export const useLicsSearchStore = create<LicsSearchState>((set, get) => ({
   },
 
   selectApartment: (item) => {
-    // 🔥 Фильтруем дубли
+    // Фильтруем дубли
     set({ lics: getUniqueLics(item.lics || []), step: 'lics' });
   },
 

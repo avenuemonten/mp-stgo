@@ -12,7 +12,6 @@ export const invoicesApi = {
     return [];
   },
 
-  // 🔥 SMART UPDATE: Пробуем разные методы, пока не сработает
   updateAddress: async (token: string, id: string, address: string) => {
     
     // Попытка 1: upd_inv_address (как было)
@@ -34,7 +33,7 @@ export const invoicesApi = {
     return res;
   },
 
-  // 🔥 НОВЫЙ МЕТОД: Закрыть заявку
+  // НОВЫЙ МЕТОД: Закрыть заявку
   closeInvoice: async (token: string, id: string) => {
       // Используем прямой путь, если в API_METHODS нет константы
       const response = await post(`/invoices/${id}/close`, { token });

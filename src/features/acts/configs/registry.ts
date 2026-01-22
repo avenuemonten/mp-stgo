@@ -1,7 +1,7 @@
 import { ActTemplateConfig } from '../types';
 import { HTML_BR, HTML_PLOMB, HTML_MR, HTML_MI, HTML_SF, HTML_SGE } from './htmlTemplates';
 
-// 🔥 ОБЩИЕ ПОЛЯ (ВЕРХНЯЯ ЧАСТЬ)
+// ОБЩИЕ ПОЛЯ (ВЕРХНЯЯ ЧАСТЬ)
 // Оставляем это, чтобы гарантировать отсутствие дубликатов в шапке
 const COMMON_FIELDS_TOP = [
   { section: 'Основное', key: 'act_number', label: 'Номер акта', type: 'string', required: true },
@@ -16,7 +16,7 @@ const COMMON_FIELDS_TOP = [
 ];
 
 export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
-  // 1. ЗАМЕНА БАТАРЕИ
+  // ЗАМЕНА БАТАРЕИ
   'actbr': {
     type: 'actbr',
     name: 'Замена батареи',
@@ -34,7 +34,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
       { key: 'installed_meter_reading', label: 'Показания', type: 'string' },
       { key: 'installed_seal_number', label: 'Номер пломбы', type: 'string' },
       
-      // 🔥 НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
+      // НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
       { section: 'Фотофиксация', key: 'photo_meter', label: 'Фото счетчика', type: 'image' },
       { key: 'photo_seal', label: 'Фото пломбы', type: 'image' },
       
@@ -43,7 +43,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
     ]
   },
 
-  // 2. ПЛОМБИРОВКА
+  // ПЛОМБИРОВКА
   'actplomb': {
     type: 'actplomb',
     name: 'Пломбировка',
@@ -59,7 +59,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
       { key: 'seal_place', label: 'Место установки', type: 'string' },
       { key: 'note', label: 'Примечание', type: 'string' },
       
-      // 🔥 НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
+      // НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
       { section: 'Фотофиксация', key: 'photo_meter', label: 'Фото счетчика', type: 'image' },
       { key: 'photo_seal', label: 'Фото пломбы', type: 'image' },
       
@@ -68,7 +68,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
     ]
   },
 
-  // 3. ЗАМЕНА СЧЕТЧИКА
+  // ЗАМЕНА СЧЕТЧИКА
   'actmr': {
     type: 'actmr',
     name: 'Замена счетчика',
@@ -86,7 +86,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
       { key: 'installed_meter_reading', label: 'Показания', type: 'string' },
       { key: 'installed_seal_number', label: 'Пломба', type: 'string' },
       
-      // 🔥 НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
+      // НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
       { section: 'Фотофиксация', key: 'photo_meter', label: 'Фото счетчика', type: 'image' },
       { key: 'photo_seal', label: 'Фото пломбы', type: 'image' },
       
@@ -95,7 +95,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
     ]
   },
 
-  // 4. ПЕРВИЧНАЯ УСТАНОВКА
+  // ПЕРВИЧНАЯ УСТАНОВКА
   'actmi': {
     type: 'actmi',
     name: 'Первичная установка',
@@ -108,7 +108,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
       { key: 'installed_meter_reading', label: 'Показания', type: 'string' },
       { key: 'installed_seal_number', label: 'Пломба', type: 'string' },
       
-      // 🔥 НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
+      // НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
       { section: 'Фотофиксация', key: 'photo_meter', label: 'Фото счетчика', type: 'image' },
       { key: 'photo_seal', label: 'Фото пломбы', type: 'image' },
       
@@ -117,7 +117,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
     ]
   },
 
-  // 5. НАРУШЕНИЕ ПЛОМБЫ
+  // НАРУШЕНИЕ ПЛОМБЫ
   'actsf': {
     type: 'actsf',
     name: 'Нарушение пломбы',
@@ -131,7 +131,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
       { section: 'Принятые меры', key: 'seal_number', label: 'Установлена новая пломба', type: 'string' },
       { key: 'meter_reading', label: 'Показания счетчика', type: 'string' },
       
-      // 🔥 НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
+      // НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
       { section: 'Фотофиксация', key: 'photo_meter', label: 'Фото счетчика', type: 'image' },
       { key: 'photo_seal', label: 'Фото пломбы', type: 'image' },
       
@@ -140,7 +140,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
     ]
   },
 
-  // 6. ОТКЛЮЧЕНИЕ ГАЗА
+  // ОТКЛЮЧЕНИЕ ГАЗА
   'actsge': {
     type: 'actsge',
     name: 'Отключение газа',
@@ -153,7 +153,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
       { key: 'seal_number', label: 'Номер пломбы/заглушки', type: 'string' },
       { key: 'meter_reading', label: 'Показания на момент откл.', type: 'string' },
       
-      // 🔥 НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
+      // НИЖНЯЯ ЧАСТЬ (Фото и Подписи)
       { section: 'Фотофиксация', key: 'photo_meter', label: 'Фото счетчика', type: 'image' },
       { key: 'photo_seal', label: 'Фото пломбы', type: 'image' },
       
@@ -162,7 +162,7 @@ export const ACT_TEMPLATES: Record<string, ActTemplateConfig> = {
     ]
   },
 
-  // 🔥 7. АКТ ВЫПОЛНЕННЫХ РАБОТ (ФИНАЛЬНЫЙ)
+  // АКТ ВЫПОЛНЕННЫХ РАБОТ (ФИНАЛЬНЫЙ)
   'actfinal': {
     type: 'actfinal',
     name: 'Акт выполненных работ',

@@ -31,7 +31,7 @@ import { InvoiceAddressPage } from './pages/invoices/InvoiceAddressPage';
 import { ActsListPage } from './pages/acts/ActsListPage';
 import { ActEditPage } from './pages/acts/ActEditPage';
 import { ActPdfViewerPage } from './pages/acts/ActPdfViewerPage';
-import { FinalActPage } from './pages/acts/FinalActPage'; // <--- ВАЖНО: Импорт новой страницы
+import { FinalActPage } from './pages/acts/FinalActPage';
 
 setupIonicReact({
   mode: 'md', 
@@ -56,7 +56,6 @@ const App: React.FC = () => (
         <Route path="/app/invoices/:id/acts/:actId/edit" component={ActEditPage} exact />
         <Route path="/app/invoices/:id/acts/:actId/pdf" component={ActPdfViewerPage} exact />
         
-        {/* 🔥 ВОТ ЭТОЙ СТРОКИ НЕ ХВАТАЛО 👇 */}
         <Route path="/app/invoices/:id/final-act" component={FinalActPage} exact />
 
         <Route exact path="/">

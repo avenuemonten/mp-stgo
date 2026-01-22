@@ -126,7 +126,7 @@ export const GenericForm: React.FC<GenericFormProps> = ({ template, initialData,
         render={({ field: { onChange, value } }) => {
           switch (field.type) {
             
-            // 🔥 FIX: Надежный выбор даты через Modal (без ion-datetime-button)
+            // Надежный выбор даты через Modal (без ion-datetime-button)
             case 'date':
               return (
                 <>
@@ -205,7 +205,7 @@ export const GenericForm: React.FC<GenericFormProps> = ({ template, initialData,
                 <IonInput 
                     value={value} 
                     onIonInput={e => onChange(e.detail.value)} 
-                    // 🔥 FIX: Если тип number, принудительно делаем number, чтобы в JSON ушло число
+                    // Если тип number, принудительно делаем number, чтобы в JSON ушло число
                     type={field.type === 'number' ? 'number' : 'text'}
                     placeholder={field.label}
                 />

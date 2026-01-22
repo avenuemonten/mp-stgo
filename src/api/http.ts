@@ -1,6 +1,6 @@
 // src/api/http.ts
 
-// 🔥 Берем URL из .env или используем хардкод как запасной вариант
+// URL из .env или используем хардкод как запасной вариант
 const BASE_URL = import.meta.env.VITE_API_URL || 'https://fhd.aostng.ru/mi/';
 const VESTA_URL = 'https://fhd.aostng.ru/inter_vesta/hs/API_STNG/V2/';
 

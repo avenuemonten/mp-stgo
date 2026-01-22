@@ -96,7 +96,7 @@ export const ActsListPage: React.FC = () => {
             </IonList>
         </div>
 
-        {/* 🔥 КНОПКА ПЛЮС (ПОДНЯТА ОЧЕНЬ ВЫСОКО - 200px) */}
+        {/* КНОПКА ПЛЮС (ПОДНЯТА ОЧЕНЬ ВЫСОКО - 200px) */}
         <IonFab vertical="bottom" horizontal="end" slot="fixed" style={{ marginBottom: '200px', marginRight: '16px' }}>
             <IonFabButton onClick={() => setShowActionSheet(true)} color="secondary">
                 <IonIcon icon={add} />
@@ -112,7 +112,7 @@ export const ActsListPage: React.FC = () => {
         
         <IonToast isOpen={showToast} message="Отправлено!" duration={2000} color="success" onDidDismiss={() => setShowToast(false)}/>
         
-        {/* 🔥 КНОПКА ОТПРАВИТЬ (ПОДНЯТА НА 120px) */}
+        {/* КНОПКА ОТПРАВИТЬ (ПОДНЯТА НА 120px) */}
         <div style={{
             position: 'fixed', bottom: '120px', left: '16px', right: '16px', zIndex: 999
         }}>

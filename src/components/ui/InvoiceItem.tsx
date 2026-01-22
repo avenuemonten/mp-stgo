@@ -2,7 +2,7 @@
 import React from 'react';
 import { IonIcon, IonRippleEffect } from '@ionic/react';
 import { locationOutline, calendarOutline } from 'ionicons/icons';
-import './InvoiceItem.css'; // 🔥 Теперь этот файл существует!
+import './InvoiceItem.css';
 
 interface InvoiceItemProps {
   invoice: any;

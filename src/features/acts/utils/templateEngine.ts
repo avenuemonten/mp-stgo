@@ -43,7 +43,7 @@ export const fillActTemplate = (htmlTemplate: string, act: any) => {
     '{{LOGO_SRC}}': USD_LOGO_BASE64 || '',
     '{{NUMBER}}': common.act_number || 'Б/Н',
     
-    // 🔥 ДАТЫ (Специально для твоего шаблона)
+    // ДАТЫ (Специально для твоего шаблона)
     '{{ACT_DATE}}': actDate.short,      // 21.01
     '{{ACT_YEAR}}': actDate.year,       // 2026
     '{{YEAR}}': actDate.year,           // Для совместимости, если где-то просто YEAR

@@ -1,0 +1,7 @@
+{
+  "name": "mp-stgo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

@@ -1,19 +1,25 @@
-// Добавляем 'photo' в список
-export type FieldType = 'string' | 'date' | 'select' | 'address' | 'sign' | 'photo' | 'header';
+export type FieldType =
+  | 'string'
+  | 'textarea'
+  | 'number'
+  | 'date'
+  | 'select'
+  | 'address'
+  | 'image'
+  | 'signature';
 
-export interface ActFieldConfig {
+export type ActFieldConfig = {
+  section?: string;
   key: string;
   label: string;
   type: FieldType;
   required?: boolean;
   options?: string[];
-  defaultValue?: any;
-  section?: string;
-}
+};
 
-export interface ActTemplateConfig {
+export type ActTemplateConfig = {
   type: string;
   name: string;
   htmlTemplate: string;
   fields: ActFieldConfig[];
-}
+};

@@ -1,5 +1,5 @@
 // src/pages/settings/SettingsPage.tsx
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   IonPage,
   IonContent,
@@ -15,6 +15,7 @@ import {
   IonAlert,
   IonToast,
   IonNote,
+  IonModal,
 } from '@ionic/react';
 import {
   personCircleOutline,
@@ -25,6 +26,7 @@ import {
   logOutOutline,
   trashOutline,
   chevronForwardOutline,
+  closeOutline,
 } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
@@ -52,10 +54,21 @@ export const SettingsPage: React.FC = () => {
     color: 'primary',
   });
 
+  // Пасхалка: 5 тапов по "О приложении"
+  const [aboutTaps, setAboutTaps] = useState(0);
+  const aboutTimerRef = useRef<number | null>(null);
+  const [showEaster, setShowEaster] = useState(false);
+
   useEffect(() => {
     document.body.classList.toggle('dark', isDark);
     localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
   }, [isDark]);
+
+  useEffect(() => {
+    return () => {
+      if (aboutTimerRef.current) window.clearTimeout(aboutTimerRef.current);
+    };
+  }, []);
 
   const displayName = user?.fullName || user?.name || 'Пользователь';
   const displayRole = user?.role ? String(user.role) : '—';
@@ -98,6 +111,30 @@ export const SettingsPage: React.FC = () => {
     localStorage.clear();
     logout();
     history.replace('/login');
+  };
+
+  const handleAboutTap = () => {
+    // обычное поведение — показать инфо
+    setToast({
+      open: true,
+      message: 'Мобильный инспектор • Сахатранснефтегаз',
+      color: 'primary',
+    });
+
+    // логика "5 тапов за короткое время"
+    if (aboutTimerRef.current) window.clearTimeout(aboutTimerRef.current);
+    aboutTimerRef.current = window.setTimeout(() => setAboutTaps(0), 1200);
+
+    setAboutTaps((prev) => {
+      const next = prev + 1;
+      if (next >= 5) {
+        // срабатывание пасхалки
+        if (aboutTimerRef.current) window.clearTimeout(aboutTimerRef.current);
+        setShowEaster(true);
+        return 0;
+      }
+      return next;
+    });
   };
 
   return (
@@ -147,22 +184,12 @@ export const SettingsPage: React.FC = () => {
                 <IonIcon slot="end" icon={chevronForwardOutline} className="chev" />
               </IonItem>
 
-              <IonItem
-                button
-                className="settings-item"
-                onClick={() =>
-                  setToast({
-                    open: true,
-                    message: 'Мобильный инспектор • Сахатранснефтегаз',
-                    color: 'primary',
-                  })
-                }
-              >
+              <IonItem button className="settings-item" onClick={handleAboutTap}>
                 <IonIcon slot="start" icon={informationCircleOutline} className="settings-icon" />
                 <IonLabel>
                   <div className="settings-label">О приложении</div>
                   <IonNote className="settings-note">
-                    Версия: {(import.meta as any)?.env?.VITE_APP_VERSION ?? '—'}
+                    Версия: {(import.meta as any)?.env?.VITE_APP_VERSION ?? '1.0.0'}
                   </IonNote>
                 </IonLabel>
                 <IonIcon slot="end" icon={chevronForwardOutline} className="chev" />
@@ -223,6 +250,47 @@ export const SettingsPage: React.FC = () => {
           color={toast.color as any}
           onDidDismiss={() => setToast((t) => ({ ...t, open: false }))}
         />
+
+        {/* Пасхалка */}
+        <IonModal
+          isOpen={showEaster}
+          onDidDismiss={() => setShowEaster(false)}
+          cssClass="easter-modal"
+          backdropDismiss={true}
+        >
+          <div className="easter-wrap" onClick={() => setShowEaster(false)} role="button" tabIndex={0}>
+            <button
+              className="easter-close"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowEaster(false);
+              }}
+              aria-label="close"
+            >
+              <IonIcon icon={closeOutline} />
+            </button>
+
+            <div className="gas-layer">
+              {Array.from({ length: 14 }).map((_, i) => (
+                <span
+                  key={i}
+                  className="gas-bubble"
+                  style={{
+                    left: `${(i * 7) % 100}%`,
+                    animationDelay: `${(i % 7) * 0.25}s`,
+                    transform: `scale(${0.7 + (i % 5) * 0.12})`,
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="easter-center">
+              <div className="easter-title">DEV BUILD</div>
+              <div className="easter-subtitle">DUOLAN 2026!</div>
+              <div className="easter-hint">тапни чтобы закрыть</div>
+            </div>
+          </div>
+        </IonModal>
       </IonContent>
     </IonPage>
   );

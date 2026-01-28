@@ -116,3 +116,111 @@
 .logout-wrap {
   margin-top: 14px;
 }
+
+/* ===== Easter Egg: DEV BUILD DUOLAN 2026 ===== */
+
+.easter-modal::part(content) {
+  --background: transparent;
+  background: transparent;
+}
+
+.easter-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  /* тёмный фон + неоновый газ */
+  background:
+    radial-gradient(60% 60% at 50% 45%, rgba(34, 197, 94, 0.22), rgba(0,0,0,0) 60%),
+    radial-gradient(70% 70% at 30% 70%, rgba(59, 130, 246, 0.12), rgba(0,0,0,0) 65%),
+    radial-gradient(80% 80% at 70% 70%, rgba(168, 85, 247, 0.10), rgba(0,0,0,0) 70%),
+    linear-gradient(180deg, #070a0f, #05070b);
+}
+
+.easter-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  outline: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+}
+
+.gas-layer {
+  position: absolute;
+  inset: -20%;
+  filter: blur(6px);
+  opacity: 0.95;
+}
+
+.gas-bubble {
+  position: absolute;
+  bottom: -10%;
+  width: 180px;
+  height: 180px;
+  border-radius: 999px;
+
+  background:
+    radial-gradient(circle at 35% 35%, rgba(34, 197, 94, 0.55), rgba(34, 197, 94, 0.0) 58%),
+    radial-gradient(circle at 65% 65%, rgba(16, 185, 129, 0.40), rgba(16, 185, 129, 0.0) 62%);
+
+  animation: gasFloat 3.8s ease-in-out infinite;
+}
+
+@keyframes gasFloat {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.0; }
+  15% { opacity: 0.85; }
+  50% { transform: translateY(-55vh) translateX(14vw) scale(1.12); opacity: 0.65; }
+  85% { opacity: 0.35; }
+  100% { transform: translateY(-95vh) translateX(-10vw) scale(0.98); opacity: 0.0; }
+}
+
+.easter-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+
+.easter-title {
+  font-weight: 900;
+  font-size: 34px;
+  letter-spacing: 2.8px;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow:
+    0 0 18px rgba(34, 197, 94, 0.55),
+    0 0 36px rgba(34, 197, 94, 0.25);
+}
+
+.easter-subtitle {
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: 1.6px;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow:
+    0 0 16px rgba(16, 185, 129, 0.50),
+    0 0 30px rgba(16, 185, 129, 0.22);
+}
+
+.easter-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}

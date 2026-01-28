@@ -1,4 +1,4 @@
-import { HTML_BR, HTML_MI, HTML_MR, HTML_PLOMB, HTML_SF, HTML_SGE, HTML_SGE_PREDPISANIE, HTML_AAD } from './htmlTemplates';
+import { HTML_BR, HTML_MI, HTML_MR, HTML_PLOMB, HTML_SF, HTML_SGE, HTML_SGE_PREDPISANIE, HTML_AAD, HTML_WORK_COMPLETED } from './htmlTemplates';
 import type { ActTemplateConfig } from '../types';
 
 const COMMON_FIELDS_TOP = [
@@ -291,8 +291,25 @@ actaad: {
   work_completed: {
     type: 'work_completed',
     name: 'Акт выполненных работ',
-    htmlTemplate: HTML_BR, // TODO: заменить на отдельный шаблон, когда будет готов
-    fields: [...COMMON_FIELDS_TOP],
+    htmlTemplate: HTML_WORK_COMPLETED,
+    fields: [
+      { section: 'Реквизиты', key: 'act_number', label: 'Номер акта', type: 'text', required: true },
+      { section: 'Реквизиты', key: 'act_date', label: 'Дата', type: 'date', required: true },
+
+      { section: 'Данные', key: 'owner_name', label: 'Владелец объекта', type: 'text', required: true },
+      { section: 'Данные', key: 'owner_phone', label: 'Телефон владельца', type: 'text', required: false },
+      { section: 'Данные', key: 'object_address', label: 'Адрес объекта', type: 'address', required: true },
+      { section: 'Данные', key: 'lic', label: 'Лицевой счёт', type: 'text', required: false },
+
+      { section: 'Работы', key: 'work_description', label: 'Перечень выполненных работ', type: 'textarea', required: true },
+      { section: 'Работы', key: 'amount', label: 'Стоимость (руб.)', type: 'number', required: false },
+      { section: 'Работы', key: 'warranty', label: 'Гарантия / примечание', type: 'text', required: false },
+      { section: 'Работы', key: 'photo_result', label: 'Фото результата', type: 'image', required: false },
+
+      { section: 'Подписи', key: 'technician_name', label: 'ФИО слесаря', type: 'text', required: true },
+      { section: 'Подписи', key: 'technician_signature', label: 'Подпись слесаря', type: 'signature', required: false },
+      { section: 'Подписи', key: 'owner_signature', label: 'Подпись владельца', type: 'signature', required: false },
+    ],
   },
 };
 

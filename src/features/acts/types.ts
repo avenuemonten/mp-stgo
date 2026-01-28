@@ -1,5 +1,6 @@
 export type FieldType =
   | 'string'
+  | 'text' 
   | 'textarea'
   | 'number'
   | 'date'

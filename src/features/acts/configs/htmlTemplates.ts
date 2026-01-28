@@ -119,6 +119,97 @@ export const HTML_BR = `<!DOCTYPE html>
 </body>
 </html>`;
 
+export const HTML_WORK_COMPLETED = `<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; font-size: 12px; margin: 0; padding: 0; }
+    .page { width: 794px; padding: 18px 24px; margin: 0 auto; }
+    .row { margin: 6px 0; }
+    .header { display: flex; align-items: center; gap: 14px; }
+    .logo { width: 60px; height: 60px; object-fit: contain; }
+    .headerText { line-height: 1.15; }
+    .headerText .l1 { font-size: 12px; font-weight: 700; }
+    .headerText .l2 { font-size: 12px; font-weight: 700; }
+    .headerText .l3 { font-size: 11px; }
+    .u { border-bottom: 1px solid #000; padding: 0 4px; display: inline-block; min-width: 220px; }
+    .title { margin: 14px 0 10px; text-align: center; font-weight: 800; font-size: 14px; }
+    .meta { display: flex; justify-content: space-between; margin: 8px 0 12px; }
+    .box { border: 1px solid #000; padding: 10px 12px; }
+    .sectionTitle { margin: 12px 0 6px; font-weight: 800; }
+    .textarea { border: 1px solid #000; min-height: 140px; padding: 8px 10px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .cell { border: 1px solid #000; padding: 8px 10px; }
+    .cell .label { font-size: 11px; color: #333; margin-bottom: 6px; }
+    .photo { border: 1px solid #000; min-height: 160px; padding: 8px 10px; display: flex; align-items: center; justify-content: center; }
+    .photo img { max-width: 100%; max-height: 220px; }
+    .signRow { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 18px; }
+    .signBox { height: 60px; border-bottom: 1px solid #000; display: flex; align-items: center; justify-content: center; }
+    .signLabel { margin-bottom: 6px; }
+    .signHint { font-size: 10px; color: #444; margin-top: 4px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <img class="logo" src="{{LOGO_SRC}}" alt="logo" />
+      <div class="headerText">
+        <div class="l1">Акционерное общество</div>
+        <div class="l2">«Сахатранснефтегаз»</div>
+        <div class="l3">Управление газораспределительных сетей</div>
+      </div>
+    </div>
+
+    <div class="title">АКТ ВЫПОЛНЕННЫХ РАБОТ</div>
+
+    <div class="meta">
+      <div>Акт № <b>{{NUMBER}}</b>/<b>{{ACT_YEAR}}</b></div>
+      <div>г. Якутск <b>{{ACT_DATE_FULL}}</b></div>
+    </div>
+
+    <div class="box">
+      <div class="row">Слесарь СТГО АО УГРС «Сахатранснефтегаз»: <span class="u">{{TECHNICIAN_NAME}}</span></div>
+      <div class="row">Владелец объекта: <span class="u">{{OWNER_NAME}}</span> &nbsp;&nbsp;тел.: <span class="u">{{OWNER_PHONE}}</span></div>
+      <div class="row">Адрес объекта: <span class="u">{{OBJECT_ADDRESS}}</span></div>
+      <div class="row">Лицевой счёт: <span class="u">{{PERSONAL_ACCOUNT}}</span></div>
+    </div>
+
+    <div class="sectionTitle">Перечень выполненных работ</div>
+    <div class="textarea">{{WORK_DESCRIPTION}}</div>
+
+    <div class="grid2">
+      <div class="cell">
+        <div class="label">Стоимость работ (если применимо), руб.</div>
+        <div class="row"><span class="u">{{WORK_AMOUNT}}</span></div>
+      </div>
+      <div class="cell">
+        <div class="label">Гарантия / примечание</div>
+        <div class="row"><span class="u">{{WORK_WARRANTY}}</span></div>
+      </div>
+    </div>
+
+    <div class="sectionTitle">Фото результата (при наличии)</div>
+    <div class="photo">{{PHOTO_RESULT}}</div>
+
+    <div class="signRow">
+      <div>
+        <div class="signLabel">Слесарь СТГО АО УГРС «Сахатранснефтегаз»</div>
+        <div class="signBox">{{TECHNICIAN_SIGNATURE}}</div>
+        <div class="signHint">подпись</div>
+      </div>
+      <div>
+        <div class="signLabel">Владелец объекта</div>
+        <div class="signBox">{{OWNER_SIGNATURE}}</div>
+        <div class="signHint">подпись</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+
 // -------------------- ActPlomb (DOCX -> HTML, стиль "как в BR") --------------------
 export const HTML_PLOMB = `<!DOCTYPE html>
 <html lang="ru">

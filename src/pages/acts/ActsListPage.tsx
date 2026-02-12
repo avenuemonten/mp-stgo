@@ -116,8 +116,11 @@ export const ActsListPage: React.FC = () => {
         </div>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed" style={{ marginBottom: '200px', marginRight: '16px' }}>
-          <IonFabButton onClick={() => setShowActionSheet(true)} color="secondary">
-            <IonIcon icon={add} />
+          <IonFabButton 
+              onClick  = { () => setShowActionSheet(true) } 
+              color    = "secondary"
+          >
+              <IonIcon icon = { add } />
           </IonFabButton>
         </IonFab>
 

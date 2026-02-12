@@ -24,7 +24,7 @@ const COMMON_HEADER = `
 `;
 
 // -------------------- ДЕТАЛЬНЫЙ ШАБЛОН (как старый разработчик) --------------------
-export const HTML_BR = `<!DOCTYPE html>
+export const HTML_BR    = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -119,7 +119,7 @@ export const HTML_BR = `<!DOCTYPE html>
 </body>
 </html>`;
 
-export const HTML_WORK_COMPLETED = `<!doctype html>
+export const HTML_WC    = `<!doctype html>
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
@@ -322,7 +322,7 @@ export const HTML_PLOMB = `<!DOCTYPE html>
 </html>`;
 
 // -------------------- actsf (ОТКЛЮЧЕНИЕ ГАЗА / НЕДОПУСК) DOCX -> HTML --------------------
-export const HTML_SF = `<!DOCTYPE html>
+export const HTML_DA    = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -497,7 +497,7 @@ export const HTML_SF = `<!DOCTYPE html>
 </html>`;
 
 // -------------------- АКТ СНЯТИЯ ПОКАЗАНИЙ ПРИБОРА УЧЕТА ГАЗА --------------------
-export const HTML_MR = `<!DOCTYPE html>
+export const HTML_MRR   = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -728,7 +728,7 @@ export const HTML_MR = `<!DOCTYPE html>
 </html>`;
 
 // -------------------- ОСТАЛЬНЫЕ АКТЫ (пока простые HTML) --------------------
-export const HTML_MI = `<!DOCTYPE html><html><head><meta charset="UTF-8">${COMMON_STYLE}</head><body>
+export const HTML_MI    = `<!DOCTYPE html><html><head><meta charset="UTF-8">${COMMON_STYLE}</head><body>
 ${COMMON_HEADER}
 <div class="act-title">АКТ УСТАНОВКИ ПРИБОРА</div>
 <div class="act-meta">г. Якутск {{ACT_DATE_FULL}} г.</div>
@@ -746,7 +746,7 @@ ${COMMON_HEADER}
 </body></html>`;
 
 // -------------------- АКТ-наряд на отключение газоиспольующего оборудования --------------------
-export const HTML_SGE = `<!DOCTYPE html>
+export const HTML_DO    = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -991,7 +991,7 @@ export const HTML_SGE = `<!DOCTYPE html>
 </html>`;
 
 // ---- Предписание ------------
-export const HTML_SGE_PREDPISANIE = `<!DOCTYPE html>
+export const HTML_PREDP = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -1148,7 +1148,7 @@ export const HTML_SGE_PREDPISANIE = `<!DOCTYPE html>
 </html>`;
 
 // -------- АКТ ААД проверки газицифированного обьекта -------
-export const HTML_AAD = `<!DOCTYPE html>
+export const HTML_AAD   = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -1490,5 +1490,422 @@ export const HTML_AAD = `<!DOCTYPE html>
   </div>
 </div>
 
+</body>
+</html>`;
+
+
+export const HTML_MR    = `<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>АКТ ЗАМЕНЫ ГАЗОВОГО СЧЕТЧИКА</title>
+  <style>
+    @page { size: A4; margin: 0cm; }
+    body { font-family: "Times New Roman", serif; font-size: 12pt; line-height: 1.2; margin: 0; padding: 0; }
+    .container { width: 21cm; min-height: 29.7cm; margin: 0 auto; padding: 1.5cm 2cm; box-sizing: border-box; }
+    .header { text-align: center; margin-bottom: 10px; }
+    .company-name { font-size: 12pt; line-height: 1.1; margin-bottom: 5px; }
+    .company-table { width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 10px; }
+    .company-table td { padding: 2px 5px; border: none; }
+    .main-title { font-size: 14pt; font-weight: bold; text-align: center; text-decoration: underline; margin: 10px 0; }
+    .date-line { text-align: right; margin: 15px 0; }
+    .content { margin: 10px 0; }
+    .field-block { margin-bottom: 8px; }
+    .field-value { display: inline; border-bottom: 1px solid #000; min-width: 200px; padding: 0 5px; text-align: center; }
+    .inline-value { display: inline-block; border-bottom: 1px solid #000; min-width: 150px; padding: 0 5px; text-align: center; }
+    .counter-block { margin-left: 30px; margin-bottom: 8px; }
+    .signature-block { margin-top: 30px; }
+    .signature-line { display: inline-block; border-bottom: 1px solid #000; min-width: 250px; padding: 0 5px; margin-top: 20px; }
+    .text-center { text-align: center; }
+    .act-number { font-size: 12pt; font-weight: bold; text-align: center; margin: 5px 0 10px 0; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+     <img src="{{LOGO_SRC}}" alt="logo" style="height:60px;" />
+    <div class="company-name">Акционерное общество</div>
+    <div class="company-name"><strong>«Сахатранснефтегаз»</strong></div>
+  </div>
+
+  <table class="company-table">
+    <tr><td class="text-center"><strong>Структурное подразделение</strong></td></tr>
+    <tr><td class="text-center"><strong>Управление газораспределительных сетей</strong></td></tr>
+    <tr><td class="text-center">
+      677005 Республика Саха (Якутия) г. Якутск, ул. П. Алексеева д. 64, тел/факс 46-00-07<br>
+      Время работы: <strong>будни</strong> с 8:00 до 17:00, обед с 12:00 до 13:00;
+      <strong>суббота, воскресенье – выходной</strong>
+    </td></tr>
+  </table>
+
+  <div class="act-number">Акт №: {{NUMBER}}/{{YEAR}}</div>
+  <div class="main-title">АКТ ЗАМЕНЫ ГАЗОВОГО СЧЕТЧИКА</div>
+
+  <div class="date-line">
+    г. Якутск <span class="field-value">{{ACT_DATE}}</span> {{ACT_YEAR}} г.
+  </div>
+
+  <div class="content">
+    <div class="field-block">
+      <span>Слесарем СТГО АО УГРС «Сахатранснефтегаз»:</span>
+      <span class="field-value">{{TECHNICIAN_NAME}}</span>
+    </div>
+
+    <div class="field-block">
+      <span>Владельцем объекта:</span>
+      <span class="field-value">{{OWNER_NAME}}</span>
+    </div>
+
+    <div class="field-block">
+      составлен настоящий акт о том, что в
+      <span class="field-value">{{OBJECT_TYPE}}</span>
+      (жилом доме, гараже, бане и т.д.)
+    </div>
+
+    <div class="field-block">
+      находящегося по адресу: <strong>г. Якутск ул.</strong>
+      <span class="field-value">{{OBJECT_ADDRESS}}</span>
+      д. ______ кв. ___
+    </div>
+
+    <div class="field-block">
+      <strong>Снят</strong>
+      <span class="field-value">{{REMOVAL_DATE}}</span>
+    </div>
+
+    <div class="counter-block">
+      <div class="field-block">
+        Счетчик газа G –
+        <span class="inline-value">{{REMOVED_METER_MODEL}}</span>
+        № <span class="inline-value">{{REMOVED_METER_NUMBER}}</span>
+        с показаниями
+        <span class="inline-value">{{REMOVED_METER_READING}}</span> м³.
+      </div>
+      <div class="field-block">
+        Пломба № <span class="inline-value">{{REMOVED_SEAL_NUMBER}}</span>
+      </div>
+    </div>
+
+    <div class="field-block">
+      <strong>Установлен</strong>
+      <span class="field-value">{{INSTALLATION_DATE}}</span>
+    </div>
+
+    <div class="counter-block">
+      <div class="field-block">
+        Счетчик газа G –
+        <span class="inline-value">{{INSTALLED_METER_MODEL}}</span>
+        № <span class="inline-value">{{INSTALLED_METER_NUMBER}}</span>
+        с показаниями
+        <span class="inline-value">{{INSTALLED_METER_READING}}</span> м³.
+      </div>
+      <div class="field-block">
+        Пломба № <span class="inline-value">{{INSTALLED_SEAL_NUMBER}}</span>
+      </div>
+    </div>
+
+    <div class="signature-block">
+      <div class="field-block">
+        <span>Слесарь СТГО АО УГРС «Сахатранснефтегаз»:</span><br>
+        <span class="signature-line">{{TECHNICIAN_SIGNATURE}}</span>
+      </div>
+      <div class="field-block">
+        <span>Владелец объекта:</span><br>
+        <span class="signature-line">{{OWNER_SIGNATURE}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>`
+
+
+export const HTML_SF    = `<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>АКТ СРЫВА ПЛОМБЫ</title>
+  <style>
+    @page { size: A4; margin: 0cm; }
+    body { font-family: "Times New Roman", serif; font-size: 12pt; line-height: 1.2; margin: 0; padding: 0; }
+    .container { width: 21cm; min-height: 29.7cm; margin: 0 auto; padding: 1.5cm 2cm; box-sizing: border-box; }
+    .header { text-align: center; margin-bottom: 10px; }
+    .company-name { font-size: 12pt; line-height: 1.1; margin-bottom: 5px; }
+    .company-table { width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 10px; }
+    .company-table td { padding: 2px 5px; border: none; }
+    .main-title { font-size: 14pt; font-weight: bold; text-align: center; text-decoration: underline; margin: 10px 0; }
+    .date-line { text-align: right; margin: 15px 0; }
+    .content { margin: 10px 0; }
+    .field-block { margin-bottom: 8px; }
+    .field-value { display: inline; border-bottom: 1px solid #000; min-width: 200px; padding: 0 5px; text-align: center; }
+    .inline-value { display: inline-block; border-bottom: 1px solid #000; min-width: 150px; padding: 0 5px; text-align: center; }
+    .signature-block { margin-top: 30px; }
+    .signature-line { display: inline-block; border-bottom: 1px solid #000; min-width: 250px; padding: 0 5px; margin-top: 20px; }
+    .text-center { text-align: center; }
+    .act-number { font-size: 12pt; font-weight: bold; text-align: center; margin: 5px 0 10px 0; }
+    .reason-block { margin-left: 30px; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+     <img src="{{LOGO_SRC}}" alt="logo" style="height:60px;" />
+    <div class="company-name">Акционерное общество</div>
+    <div class="company-name"><strong>«Сахатранснефтегаз»</strong></div>
+  </div>
+
+  <table class="company-table">
+    <tr><td class="text-center"><strong>Структурное подразделение</strong></td></tr>
+    <tr><td class="text-center"><strong>Управление газораспределительных сетей</strong></td></tr>
+    <tr><td class="text-center">
+      677005 Республика Саха (Якутия) г. Якутск, ул. П. Алексеева д. 64, тел/факс 46-00-07<br>
+      Время работы: <strong>будни</strong> с 8:00 до 17:00, обед с 12:00 до 13:00;
+      <strong>суббота, воскресенье – выходной</strong>
+    </td></tr>
+  </table>
+
+  <div class="act-number">Акт №: {{NUMBER}}/{{YEAR}}</div>
+  <div class="main-title">АКТ СРЫВА ПЛОМБЫ</div>
+
+  <div class="date-line">
+    г. Якутск «<span class="field-value">{{ACT_DAY}}</span>» 
+    <span class="field-value">{{ACT_MONTH}}</span> 
+    <span class="field-value">{{ACT_YEAR}}</span> год
+  </div>
+
+  <div class="content">
+    <div class="field-block">
+      <span>Представителями УГРС АО «Сахатранснефтегаз»:</span>
+    </div>
+    
+    <div class="field-block">
+      <span>Слесарем СТГО АО УГРС «Сахатранснефтегаз»:</span>
+      <span class="field-value">{{TECHNICIAN1_NAME}}</span>
+    </div>
+
+    <div class="field-block">
+      <span>Слесарем СТГО АО УГРС «Сахатранснефтегаз»:</span>
+      <span class="field-value">{{TECHNICIAN2_NAME}}</span>
+    </div>
+
+    <div class="field-block">
+      <span>Владельцем объекта:</span>
+      <span class="field-value">{{OWNER_NAME}}</span>
+    </div>
+
+    <div class="field-block">
+      составлен настоящий акт в том, что в
+      <span class="field-value">{{OBJECT_TYPE}}</span>
+      (жилом доме, гараже, бане и т.д.)
+    </div>
+
+    <div class="field-block">
+      находящегося по адресу: [г. Якутск ул.]
+      <span class="field-value">{{STREET}}</span>
+      д. <span class="inline-value">{{HOUSE}}</span> 
+      кв. <span class="inline-value">{{APARTMENT}}</span>
+    </div>
+
+    <div class="field-block">
+      <strong>Сорвана</strong> «<span class="field-value">{{BREAK_DAY}}</span>» 
+      <span class="field-value">{{BREAK_MONTH}}</span> 
+      <span class="field-value">{{BREAK_YEAR}}</span> г:
+    </div>
+
+    <div class="reason-block">
+      <div class="field-block">
+        1. Пломба № <span class="inline-value">{{BREAK_SEAL_NUMBER}}</span> 
+        цвет <span class="inline-value">{{BREAK_SEAL_COLOR}}</span>
+      </div>
+      <div class="field-block">
+        2. Счетчик газа G---<span class="inline-value">{{BREAK_METER_MODEL}}</span> 
+        № <span class="inline-value">{{BREAK_METER_NUMBER}}</span>
+        с показаниями <span class="inline-value">{{BREAK_METER_READING}}</span> м3.
+      </div>
+    </div>
+
+    <div class="field-block">
+      По причине <span class="field-value">{{REASON}}</span>
+    </div>
+
+    <div class="field-block">
+      <strong>Установлена</strong> «<span class="field-value">{{INSTALL_DAY}}</span>» 
+      <span class="field-value">{{INSTALL_MONTH}}</span> 
+      <span class="field-value">{{INSTALL_YEAR}}</span> г:
+    </div>
+
+    <div class="reason-block">
+      <div class="field-block">
+        1. Пломба № <span class="inline-value">{{INSTALL_SEAL_NUMBER}}</span> 
+        цвет <span class="inline-value">{{INSTALL_SEAL_COLOR}}</span>
+      </div>
+      <div class="field-block">
+        2. Счетчик газа G---<span class="inline-value">{{INSTALL_METER_MODEL}}</span> 
+        № <span class="inline-value">{{INSTALL_METER_NUMBER}}</span>
+        с показаниями <span class="inline-value">{{INSTALL_METER_READING}}</span> м3.
+      </div>
+    </div>
+
+    <div class="signature-block">
+      <div class="field-block">
+        <span>Подписи сторон:</span>
+      </div>
+      <div class="field-block">
+        <span>Слесарь СТГО АО УГРС «Сахатранснефтегаз»:</span><br>
+        <span class="signature-line">{{TECHNICIAN1_SIGNATURE}}</span>
+      </div>
+      <div class="field-block">
+        <span>Слесарь СТГО АО УГРС «Сахатранснефтегаз»:</span><br>
+        <span class="signature-line">{{TECHNICIAN2_SIGNATURE}}</span>
+      </div>
+      <div class="field-block">
+        <span>Владелец объекта:</span><br>
+        <span class="signature-line">{{OWNER_SIGNATURE}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>`;
+
+
+export const HTML_SGE   = `<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>АКТ ОТКЛЮЧЕНИЯ БЫТОВОГО ГАЗОИСПОЛЬЗУЮЩЕГО ГАЗОВОГО ОБОРУДОВАНИЯ</title>
+  <style>
+    @page { size: A4; margin: 0cm; }
+    body { font-family: "Times New Roman", serif; font-size: 12pt; line-height: 1.2; margin: 0; padding: 0; }
+    .container { width: 21cm; min-height: 29.7cm; margin: 0 auto; padding: 1.5cm 2cm; box-sizing: border-box; }
+    .header { text-align: center; margin-bottom: 10px; }
+    .company-name { font-size: 12pt; line-height: 1.1; margin-bottom: 5px; }
+    .company-table { width: 100%; border: 1px solid #000; border-collapse: collapse; margin-bottom: 10px; }
+    .company-table td { padding: 2px 5px; border: none; }
+    .main-title { font-size: 14pt; font-weight: bold; text-align: center; text-decoration: underline; margin: 10px 0; }
+    .date-line { text-align: right; margin: 15px 0; }
+    .content { margin: 10px 0; }
+    .field-block { margin-bottom: 8px; }
+    .field-value { display: inline; border-bottom: 1px solid #000; min-width: 200px; padding: 0 5px; text-align: center; }
+    .inline-value { display: inline-block; border-bottom: 1px solid #000; min-width: 150px; padding: 0 5px; text-align: center; }
+    .signature-block { margin-top: 30px; }
+    .signature-line { display: inline-block; border-bottom: 1px solid #000; min-width: 250px; padding: 0 5px; margin-top: 20px; }
+    .text-center { text-align: center; }
+    .act-number { font-size: 12pt; font-weight: bold; text-align: center; margin: 5px 0 10px 0; }
+    .underline { text-decoration: underline; }
+    .bold { font-weight: bold; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+     <img src="{{LOGO_SRC}}" alt="logo" style="height:60px;" />
+    <div class="company-name">Акционерное общество</div>
+    <div class="company-name"><strong>«Сахатранснефтегаз»</strong></div>
+  </div>
+
+  <table class="company-table">
+    <tr><td class="text-center"><strong>Структурное подразделение</strong></td></tr>
+    <tr><td class="text-center"><strong>Управление газораспределительных сетей</strong></td></tr>
+    <tr><td class="text-center">
+      677005 Республика Саха (Якутия) г. Якутск, ул. П. Алексеева д. 64, тел/факс 46-00-07<br>
+      Время работы: <strong>будни</strong> с 8:00 до 17:00, обед с 12:00 до 13:00;
+      <strong>суббота, воскресенье – выходной</strong>
+    </td></tr>
+  </table>
+
+  <div class="act-number">Акт №: {{NUMBER}}/{{YEAR}}</div>
+  <div class="main-title">АКТ ОТКЛЮЧЕНИЯ БЫТОВОГО ГАЗОИСПОЛЬЗУЮЩЕГО ГАЗОВОГО ОБОРУДОВАНИЯ</div>
+
+  <div class="date-line">
+    «<span class="field-value">{{ACT_DAY}}</span>» <span class="field-value">{{ACT_MONTH}}</span> <span class="field-value">{{ACT_YEAR}}</span> г. л/с <span class="field-value">{{PERSONAL_ACCOUNT}}</span>
+  </div>
+
+  <div class="content">
+    <div class="field-block">
+      Ввиду <span class="underline">Наряд-задание на отключение № <span class="field-value">{{WORK_ORDER_NUMBER}}</span> от <span class="field-value">{{WORK_ORDER_DATE}}</span> по задолженности</span>
+    </div>
+
+    <div class="field-block">
+      <span class="field-value">{{DEBT_REASON}}</span>
+    </div>
+
+    <div class="field-block">
+      <span>в квартире № <span class="field-value">{{APARTMENT_NUMBER}}</span> дома № <span class="field-value">{{HOUSE_NUMBER}}</span> корпус <span class="field-value">{{BUILDING_NUMBER}}</span> по ул. <span class="field-value">{{STREET_NAME}}</span></span>
+    </div>
+
+    <div class="field-block">
+      <span>г. Якутск <span class="field-value">{{CITY_DISTRICT}}</span></span>
+    </div>
+
+    <div class="field-block">
+      <span>Заказчик <span class="field-value">{{CUSTOMER_NAME}}</span></span>
+    </div>
+
+    <div class="field-block">
+      <span>представителем УГРС АО «Сахатранснефтегаз» <span class="field-value">{{REPRESENTATIVE_POSITION}}</span> <span class="field-value">{{REPRESENTATIVE_NAME}}</span></span>
+    </div>
+
+    <div class="field-block">
+      <span>в <span class="field-value">{{DISCONNECTION_TIME_HOURS}}</span> ч <span class="field-value">{{DISCONNECTION_TIME_MINUTES}}</span> мин. отключено газоиспользующее оборудование:</span>
+    </div>
+
+    <div class="field-block">
+      <span class="field-value">{{EQUIPMENT_DESCRIPTION}}</span>
+    </div>
+
+    <div class="field-block">
+      <span class="field-value">{{EQUIPMENT_COUNT}}</span>
+    </div>
+
+    <div class="field-block">
+      <span class="field-value">{{DISCONNECTION_METHOD}}</span>
+    </div>
+
+    <div class="field-block">
+      <span>Установлена пломба № <span class="field-value">{{SEAL_NUMBER}}</span></span>
+    </div>
+
+    <div class="signature-block">
+      <div class="field-block">
+        <span>Представитель УГРС АО «Сахатранснегаз»</span><br>
+        <span class="signature-line">{{REPRESENTATIVE_SIGNATURE}}</span><br>
+        <span>личная подпись инициалы, фамилия</span>
+      </div>
+
+      <div class="field-block">
+        <span>Заказчик</span><br>
+        <span class="signature-line">{{CUSTOMER_SIGNATURE}}</span><br>
+        <span>личная подпись инициалы, фамилия</span>
+      </div>
+    </div>
+
+    <div class="field-block" style="margin-top: 40px;">
+      <span>Газоиспользующее оборудование подключено «<span class="field-value">{{RECONNECTION_DATE}}</span>» <span class="field-value">{{RECONNECTION_MONTH}}</span> <span class="field-value">{{RECONNECTION_YEAR}}</span> г.</span>
+    </div>
+
+    <div class="field-block">
+      <span>представителем УГРС АО «Сахатранснефтегаз»</span><br>
+      <span class="field-value">{{RECONNECTION_REPRESENTATIVE}}</span><br>
+      <span>должность, инициалы, фамилия личная подпись</span>
+    </div>
+
+    <div class="field-block">
+      <span>Представитель УГРС АО «Сахатранснефтегаз»</span><br>
+      <span class="signature-line">{{RECONNECTION_REPRESENTATIVE_SIGNATURE}}</span><br>
+      <span>личная подпись инициалы, фамилия</span>
+    </div>
+
+    <div class="field-block">
+      <span>Потребитель газа</span><br>
+      <span class="signature-line">{{CUSTOMER_SIGNATURE}}</span><br>
+      <span>личная подпись инициалы, фамилия</span>
+    </div>
+
+    <div class="field-block">
+      <span>на основании <span class="field-value">{{RECONNECTION_BASIS}}</span></span>
+    </div>
+  </div>
+</div>
 </body>
 </html>`;

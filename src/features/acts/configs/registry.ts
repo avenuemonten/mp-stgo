@@ -1,4 +1,4 @@
-import { HTML_BR, HTML_MI, HTML_MR, HTML_PLOMB, HTML_SF, HTML_SGE, HTML_SGE_PREDPISANIE, HTML_AAD, HTML_WORK_COMPLETED } from './htmlTemplates';
+import { HTML_BR, HTML_MI, HTML_MR, HTML_MRR, HTML_PLOMB, HTML_DA, HTML_DO, HTML_PREDP, HTML_AAD, HTML_WC, HTML_SF, HTML_SGE } from './htmlTemplates';
 import type { ActTemplateConfig } from '../types';
 
 const COMMON_FIELDS_TOP = [
@@ -13,6 +13,7 @@ const COMMON_FIELDS_TOP = [
 ] as const;
 
 export const ACT_TEMPLATES_REGISTRY: Record<string, ActTemplateConfig> = {
+  
   actbr: {
     type: 'actbr',
     name: 'Акт замены аккумуляторной батареи',
@@ -67,11 +68,10 @@ export const ACT_TEMPLATES_REGISTRY: Record<string, ActTemplateConfig> = {
     ],
   },
 
-  // ✅ actsf = "Отключение газа / недопуск" (как в DOCX)
-  actsf: {
-    type: 'actsf',
+  actda: {
+    type: 'actda',
     name: 'Акт недопуска для проведения проверки (отключения)',
-    htmlTemplate: HTML_SF,
+    htmlTemplate: HTML_DA,
     fields: [
       ...COMMON_FIELDS_TOP,
 
@@ -125,43 +125,42 @@ export const ACT_TEMPLATES_REGISTRY: Record<string, ActTemplateConfig> = {
     ],
   },
 
-  actmr: {
-    type: 'actmr',
+  actmrr: {
+    type: 'actmrr',
     name: 'Акт снятия показаний',
-    htmlTemplate: HTML_MR,
+    htmlTemplate: HTML_MRR,
     fields: [
-  ...COMMON_FIELDS_TOP,
+      ...COMMON_FIELDS_TOP,
 
-  { section: 'Объект', key: 'mr_object', label: 'На объекте (название/тип)', type: 'string', required: true },
+      { section: 'Объект', key: 'mr_object', label: 'На объекте (название/тип)', type: 'string', required: true },
 
-  { section: 'Прибор 1', key: 'mr1_model', label: 'Марка/тип', type: 'string', required: true },
-  { section: 'Прибор 1', key: 'mr1_number', label: 'Заводской №', type: 'string', required: true },
-  { section: 'Прибор 1', key: 'mr1_seal', label: 'Пломба (№, цвет)', type: 'string' },
-  { section: 'Прибор 1', key: 'mr1_verify_date', label: 'Поверка от (дата)', type: 'date' },
-  { section: 'Прибор 1', key: 'mr1_reading', label: 'Текущие показания (м³)', type: 'string' },
-  { section: 'Прибор 1', key: 'mr1_flow', label: 'Направление хода газа', type: 'string' },
+      { section: 'Прибор 1', key: 'mr1_model', label: 'Марка/тип', type: 'string', required: true },
+      { section: 'Прибор 1', key: 'mr1_number', label: 'Заводской №', type: 'string', required: true },
+      { section: 'Прибор 1', key: 'mr1_seal', label: 'Пломба (№, цвет)', type: 'string' },
+      { section: 'Прибор 1', key: 'mr1_verify_date', label: 'Поверка от (дата)', type: 'date' },
+      { section: 'Прибор 1', key: 'mr1_reading', label: 'Текущие показания (м³)', type: 'string' },
+      { section: 'Прибор 1', key: 'mr1_flow', label: 'Направление хода газа', type: 'string' },
 
-  { section: 'Прибор 2', key: 'mr2_model', label: 'Марка/тип', type: 'string' },
-  { section: 'Прибор 2', key: 'mr2_number', label: 'Заводской №', type: 'string' },
-  { section: 'Прибор 2', key: 'mr2_seal', label: 'Пломба (№, цвет)', type: 'string' },
-  { section: 'Прибор 2', key: 'mr2_verify_date', label: 'Поверка от (дата)', type: 'date' },
-  { section: 'Прибор 2', key: 'mr2_reading', label: 'Текущие показания (м³)', type: 'string' },
-  { section: 'Прибор 2', key: 'mr2_flow', label: 'Направление хода газа', type: 'string' },
+      { section: 'Прибор 2', key: 'mr2_model', label: 'Марка/тип', type: 'string' },
+      { section: 'Прибор 2', key: 'mr2_number', label: 'Заводской №', type: 'string' },
+      { section: 'Прибор 2', key: 'mr2_seal', label: 'Пломба (№, цвет)', type: 'string' },
+      { section: 'Прибор 2', key: 'mr2_verify_date', label: 'Поверка от (дата)', type: 'date' },
+      { section: 'Прибор 2', key: 'mr2_reading', label: 'Текущие показания (м³)', type: 'string' },
+      { section: 'Прибор 2', key: 'mr2_flow', label: 'Направление хода газа', type: 'string' },
 
-  { section: 'Прибор 3', key: 'mr3_model', label: 'Марка/тип', type: 'string' },
-  { section: 'Прибор 3', key: 'mr3_number', label: 'Заводской №', type: 'string' },
-  { section: 'Прибор 3', key: 'mr3_seal', label: 'Пломба (№, цвет)', type: 'string' },
-  { section: 'Прибор 3', key: 'mr3_verify_date', label: 'Поверка от (дата)', type: 'date' },
-  { section: 'Прибор 3', key: 'mr3_reading', label: 'Текущие показания (м³)', type: 'string' },
-  { section: 'Прибор 3', key: 'mr3_flow', label: 'Направление хода газа', type: 'string' },
+      { section: 'Прибор 3', key: 'mr3_model', label: 'Марка/тип', type: 'string' },
+      { section: 'Прибор 3', key: 'mr3_number', label: 'Заводской №', type: 'string' },
+      { section: 'Прибор 3', key: 'mr3_seal', label: 'Пломба (№, цвет)', type: 'string' },
+      { section: 'Прибор 3', key: 'mr3_verify_date', label: 'Поверка от (дата)', type: 'date' },
+      { section: 'Прибор 3', key: 'mr3_reading', label: 'Текущие показания (м³)', type: 'string' },
+      { section: 'Прибор 3', key: 'mr3_flow', label: 'Направление хода газа', type: 'string' },
 
-  { section: 'Заключение', key: 'mr_conclusion', label: 'Заключение', type: 'textarea' },
+      { section: 'Заключение', key: 'mr_conclusion', label: 'Заключение', type: 'textarea' },
 
-  { section: 'Подписи', key: 'technician_name', label: 'ФИО представителя поставщика', type: 'string', required: true },
-  { section: 'Подписи', key: 'technician_signature', label: 'Подпись поставщика', type: 'signature' },
-  { section: 'Подписи', key: 'owner_signature', label: 'Подпись абонента', type: 'signature' },
-]
-,
+      { section: 'Подписи', key: 'technician_name', label: 'ФИО представителя поставщика', type: 'string', required: true },
+      { section: 'Подписи', key: 'technician_signature', label: 'Подпись поставщика', type: 'signature' },
+      { section: 'Подписи', key: 'owner_signature', label: 'Подпись абонента', type: 'signature' },
+    ]
   },
 
   actmi: {
@@ -176,141 +175,263 @@ export const ACT_TEMPLATES_REGISTRY: Record<string, ActTemplateConfig> = {
     ],
   },
 
-  actsge: {
-    type: 'actsge',
+  actdo: {
+    type: 'actdo',
     name: 'Акт наряд на отключение (Ф29Э)',
-    htmlTemplate: HTML_SGE,
+    htmlTemplate: HTML_DO,
     fields: [
-  ...COMMON_FIELDS_TOP,
+      ...COMMON_FIELDS_TOP,
 
-  { section: 'Кому выдан наряд', key: 'sge_exp_fio', label: 'ФИО (эксплуатационная орг.)', type: 'string', required: true },
-  { section: 'Кому выдан наряд', key: 'sge_exp_position', label: 'Должность (эксплуатационная орг.)', type: 'string', required: true },
+      { section: 'Кому выдан наряд',        key: 'do_exp_fio',              label: 'ФИО (эксплуатационная орг.)', type: 'string', required: true },
+      { section: 'Кому выдан наряд',        key: 'do_exp_position',         label: 'Должность (эксплуатационная орг.)', type: 'string', required: true },
 
-  { section: 'Основание', key: 'sge_reason', label: 'Причина (ввиду)', type: 'textarea', required: true },
-  { section: 'Отключить', key: 'sge_appliances', label: 'Наименование приборов', type: 'textarea', required: true },
+      { section: 'Основание',               key: 'do_reason',               label: 'Причина (ввиду)', type: 'textarea', required: true },
+      { section: 'Отключить',               key: 'do_appliances',           label: 'Наименование приборов', type: 'textarea', required: true },
 
-  { section: 'Адрес (как в бланке)', key: 'sge_apt', label: 'Квартира №', type: 'string', required: true },
-  { section: 'Адрес (как в бланке)', key: 'sge_house', label: 'Дом №', type: 'string', required: true },
-  { section: 'Адрес (как в бланке)', key: 'sge_street', label: 'Улица', type: 'string', required: true },
+      { section: 'Адрес (как в бланке)',    key: 'do_apt',                  label: 'Квартира №', type: 'string', required: true },
+      { section: 'Адрес (как в бланке)',    key: 'do_house',                label: 'Дом №', type: 'string', required: true },
+      { section: 'Адрес (как в бланке)',    key: 'do_street',               label: 'Улица', type: 'string', required: true },
 
-  { section: 'Наряд', key: 'sge_issued_by', label: 'Наряд выдал (должность, ФИО)', type: 'string', required: true },
-  { section: 'Наряд', key: 'sge_issued_signature', label: 'Подпись (наряд выдал)', type: 'signature' },
+      { section: 'Наряд',                   key: 'do_issued_by',            label: 'Наряд выдал (должность, ФИО)', type: 'string', required: true },
+      { section: 'Наряд',                   key: 'do_issued_signature',     label: 'Подпись (наряд выдал)', type: 'signature' },
 
-  { section: 'Наряд', key: 'sge_received_by', label: 'Наряд получил (должность, ФИО)', type: 'string', required: true },
-  { section: 'Наряд', key: 'sge_received_signature', label: 'Подпись (наряд получил)', type: 'signature' },
+      { section: 'Наряд',                   key: 'do_received_by',          label: 'Наряд получил (должность, ФИО)', type: 'string', required: true },
+      { section: 'Наряд',                   key: 'do_received_signature',   label: 'Подпись (наряд получил)', type: 'signature' },
 
-  { section: 'Исполнитель', key: 'sge_executor', label: 'Мною (должность, ФИО)', type: 'string', required: true },
-  { section: 'Отключение', key: 'sge_off_datetime', label: 'Дата/время отключения (текстом)', type: 'string', required: true },
-  { section: 'Отключение', key: 'sge_off_details', label: 'Что отключено (кол-во, способ)', type: 'textarea', required: true },
+      { section: 'Исполнитель',             key: 'do_executor',             label: 'Мною (должность, ФИО)', type: 'string', required: true },
+      { section: 'Отключение',              key: 'do_off_datetime',         label: 'Дата/время отключения (текстом)', type: 'string', required: true },
+      { section: 'Отключение',              key: 'do_off_details',          label: 'Что отключено (кол-во, способ)', type: 'textarea', required: true },
 
-  { section: 'Подписи (отключение)', key: 'sge_off_exp_signature', label: 'Эксплуатационная орг. (подпись)', type: 'signature' },
-  { section: 'Подписи (отключение)', key: 'sge_off_owner_signature', label: 'Абонент (подпись)', type: 'signature' },
+      { section: 'Подписи (отключение)',    key: 'do_off_exp_signature',    label: 'Эксплуатационная орг. (подпись)', type: 'signature' },
+      { section: 'Подписи (отключение)',    key: 'do_off_owner_signature',  label: 'Абонент (подпись)', type: 'signature' },
 
-  { section: 'Подключение', key: 'sge_on_date', label: 'Дата подключения (текстом)', type: 'string' },
-  { section: 'Подключение', key: 'sge_on_exp', label: 'Подключил (должность, ФИО)', type: 'string' },
-  { section: 'Подключение', key: 'sge_on_by', label: 'По указанию (должность, ФИО)', type: 'string' },
+      { section: 'Подключение',             key: 'do_on_date',              label: 'Дата подключения (текстом)', type: 'string' },
+      { section: 'Подключение',             key: 'do_on_exp',               label: 'Подключил (должность, ФИО)', type: 'string' },
+      { section: 'Подключение',             key: 'do_on_by',                label: 'По указанию (должность, ФИО)', type: 'string' },
 
-  { section: 'Подписи (подключение)', key: 'sge_on_exp_signature', label: 'Эксплуатационная орг. (подпись)', type: 'signature' },
-  { section: 'Подписи (подключение)', key: 'sge_on_owner_signature', label: 'Абонент (подпись)', type: 'signature' },
-],
+      { section: 'Подписи (подключение)',   key: 'do_on_exp_signature',     label: 'Эксплуатационная орг. (подпись)', type: 'signature' },
+      { section: 'Подписи (подключение)',   key: 'do_on_owner_signature',   label: 'Абонент (подпись)', type: 'signature' },
+    ]
   },
 
-  actsge_predpisanie: {
-  type: 'actsge_predpisanie',
-  name: 'Предписание',
-  htmlTemplate: HTML_SGE_PREDPISANIE,
-  fields: [
-    ...COMMON_FIELDS_TOP,
+  predp: {
+    type: 'predp',
+    name: 'Предписание',
+    htmlTemplate: HTML_PREDP,
+    fields: [
+      ...COMMON_FIELDS_TOP,
 
-    { section: 'Данные проверки', key: 'personal_account', label: 'Л/С', type: 'string', required: true },
+      { section: 'Данные проверки', key: 'personal_account', label: 'Л/С', type: 'string', required: true },
 
-    { section: 'Нарушения', key: 'pred_violations', label: 'Выявленные нарушения', type: 'textarea', required: true },
-    { section: 'Срок', key: 'pred_deadline', label: 'Устранить до (дата)', type: 'date', required: true },
+      { section: 'Нарушения', key: 'pred_violations', label: 'Выявленные нарушения', type: 'textarea', required: true },
+      { section: 'Срок', key: 'pred_deadline', label: 'Устранить до (дата)', type: 'date', required: true },
 
-    { section: 'Подписи', key: 'pred_rep_fio', label: 'Представитель организации (ФИО)', type: 'string', required: true },
-    { section: 'Подписи', key: 'pred_rep_signature', label: 'Подпись представителя', type: 'signature' },
+      { section: 'Подписи', key: 'pred_rep_fio', label: 'Представитель организации (ФИО)', type: 'string', required: true },
+      { section: 'Подписи', key: 'pred_rep_signature', label: 'Подпись представителя', type: 'signature' },
 
-    { section: 'Подписи', key: 'pred_owner_signature', label: 'Подпись абонента', type: 'signature' },
+      { section: 'Подписи', key: 'pred_owner_signature', label: 'Подпись абонента', type: 'signature' },
 
-    { section: 'Подписи', key: 'pred_owner_rep_fio', label: 'Представитель абонента (ФИО)', type: 'string' },
-    { section: 'Подписи', key: 'pred_owner_rep_signature', label: 'Подпись представителя абонента', type: 'signature' },
-  ],
-},
+      { section: 'Подписи', key: 'pred_owner_rep_fio', label: 'Представитель абонента (ФИО)', type: 'string' },
+      { section: 'Подписи', key: 'pred_owner_rep_signature', label: 'Подпись представителя абонента', type: 'signature' },
+    ],
+  },
 
-actaad: {
-  type: 'actaad',
-  name: 'Акт проверки газифицированного объекта (ААД)',
-  htmlTemplate: HTML_AAD,
-  fields: [
-    ...COMMON_FIELDS_TOP,
+  actaad: {
+    type: 'actaad',
+    name: 'Акт проверки газифицированного объекта (ААД)',
+    htmlTemplate: HTML_AAD,
+    fields: [
+      ...COMMON_FIELDS_TOP,
 
-    { section: 'Данные', key: 'personal_account', label: 'Л/С', type: 'string', required: true },
-    { section: 'Время', key: 'aad_time', label: 'Время (HH:MM)', type: 'string', required: true },
+      { section: 'Данные', key: 'personal_account', label: 'Л/С', type: 'string', required: true },
+      { section: 'Время', key: 'aad_time', label: 'Время (HH:MM)', type: 'string', required: true },
 
-    { section: 'Представитель поставщика', key: 'aad_supplier_rep_fio', label: 'ФИО представителя УСД', type: 'string', required: true },
-    { section: 'Абонент', key: 'aad_owner_doc', label: 'Документ абонента (реквизиты)', type: 'textarea', required: true },
+      { section: 'Представитель поставщика', key: 'aad_supplier_rep_fio', label: 'ФИО представителя УСД', type: 'string', required: true },
+      { section: 'Абонент', key: 'aad_owner_doc', label: 'Документ абонента (реквизиты)', type: 'textarea', required: true },
 
-    { section: 'Представитель абонента', key: 'aad_owner_rep_fio', label: 'ФИО представителя абонента', type: 'string' },
-    { section: 'Представитель абонента', key: 'aad_owner_rep_doc', label: 'Документ представителя (реквизиты)', type: 'textarea' },
+      { section: 'Представитель абонента', key: 'aad_owner_rep_fio', label: 'ФИО представителя абонента', type: 'string' },
+      { section: 'Представитель абонента', key: 'aad_owner_rep_doc', label: 'Документ представителя (реквизиты)', type: 'textarea' },
 
-    { section: 'Выявлено', key: 'aad_found', label: 'Выявлено', type: 'textarea', required: true },
+      { section: 'Выявлено', key: 'aad_found', label: 'Выявлено', type: 'textarea', required: true },
 
-    { section: 'Счетчик 1', key: 'aad1_type', label: 'Тип (после G)', type: 'string' },
-    { section: 'Счетчик 1', key: 'aad1_number', label: 'Заводской №', type: 'string' },
-    { section: 'Счетчик 1', key: 'aad1_reading', label: 'Показания (м³)', type: 'string' },
-    { section: 'Счетчик 1', key: 'aad1_seal', label: 'Пломба №', type: 'string' },
-    { section: 'Счетчик 1', key: 'aad1_seal_color', label: 'Цвет пломбы', type: 'string' },
-    { section: 'Счетчик 1', key: 'aad1_equipment', label: 'Газовое оборудование', type: 'textarea' },
-    { section: 'Счетчик 1', key: 'aad1_living_area', label: 'Жилая площадь (м²)', type: 'string' },
-    { section: 'Счетчик 1', key: 'aad1_nonliving_area', label: 'Нежилая площадь (м²)', type: 'string' },
-    { section: 'Счетчик 1', key: 'aad1_people', label: 'Количество чел.', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_type', label: 'Тип (после G)', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_number', label: 'Заводской №', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_reading', label: 'Показания (м³)', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_seal', label: 'Пломба №', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_seal_color', label: 'Цвет пломбы', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_equipment', label: 'Газовое оборудование', type: 'textarea' },
+      { section: 'Счетчик 1', key: 'aad1_living_area', label: 'Жилая площадь (м²)', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_nonliving_area', label: 'Нежилая площадь (м²)', type: 'string' },
+      { section: 'Счетчик 1', key: 'aad1_people', label: 'Количество чел.', type: 'string' },
 
-    { section: 'Счетчик 2', key: 'aad2_type', label: 'Тип (после G)', type: 'string' },
-    { section: 'Счетчик 2', key: 'aad2_number', label: 'Заводской №', type: 'string' },
-    { section: 'Счетчик 2', key: 'aad2_reading', label: 'Показания (м³)', type: 'string' },
-    { section: 'Счетчик 2', key: 'aad2_seal', label: 'Пломба №', type: 'string' },
-    { section: 'Счетчик 2', key: 'aad2_seal_color', label: 'Цвет пломбы', type: 'string' },
-    { section: 'Счетчик 2', key: 'aad2_equipment', label: 'Газовое оборудование', type: 'textarea' },
-    { section: 'Счетчик 2', key: 'aad2_living_area', label: 'Жилая площадь (м²)', type: 'string' },
-    { section: 'Счетчик 2', key: 'aad2_nonliving_area', label: 'Нежилая площадь (м²)', type: 'string' },
-    { section: 'Счетчик 2', key: 'aad2_people', label: 'Количество чел.', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_type', label: 'Тип (после G)', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_number', label: 'Заводской №', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_reading', label: 'Показания (м³)', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_seal', label: 'Пломба №', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_seal_color', label: 'Цвет пломбы', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_equipment', label: 'Газовое оборудование', type: 'textarea' },
+      { section: 'Счетчик 2', key: 'aad2_living_area', label: 'Жилая площадь (м²)', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_nonliving_area', label: 'Нежилая площадь (м²)', type: 'string' },
+      { section: 'Счетчик 2', key: 'aad2_people', label: 'Количество чел.', type: 'string' },
 
-    { section: 'Комментарий', key: 'aad_owner_opinion', label: 'Особое мнение абонента', type: 'textarea' },
-    { section: 'Комментарий', key: 'aad_note', label: 'Примечание', type: 'textarea' },
+      { section: 'Комментарий', key: 'aad_owner_opinion', label: 'Особое мнение абонента', type: 'textarea' },
+      { section: 'Комментарий', key: 'aad_note', label: 'Примечание', type: 'textarea' },
 
-    { section: 'Подписи', key: 'aad_supplier_signature', label: 'Подпись представителя организации', type: 'signature' },
-    { section: 'Подписи', key: 'aad_owner_signature', label: 'Подпись абонента', type: 'signature' },
-    { section: 'Подписи', key: 'aad_owner_rep_signature', label: 'Подпись представителя абонента', type: 'signature' },
+      { section: 'Подписи', key: 'aad_supplier_signature', label: 'Подпись представителя организации', type: 'signature' },
+      { section: 'Подписи', key: 'aad_owner_signature', label: 'Подпись абонента', type: 'signature' },
+      { section: 'Подписи', key: 'aad_owner_rep_signature', label: 'Подпись представителя абонента', type: 'signature' },
 
-    { section: 'Присутствовал', key: 'aad_witness_fio', label: 'ФИО присутствующего', type: 'string' },
-    { section: 'Присутствовал', key: 'aad_witness_doc', label: 'Документ присутствующего (реквизиты)', type: 'textarea' },
-  ],
-},
+      { section: 'Присутствовал', key: 'aad_witness_fio', label: 'ФИО присутствующего', type: 'string' },
+      { section: 'Присутствовал', key: 'aad_witness_doc', label: 'Документ присутствующего (реквизиты)', type: 'textarea' },
+    ],
+  },
 
+  actmr: {
+    type: 'actmr',
+    name: 'Акт замены газового счетчика',
+    htmlTemplate: HTML_MR, // Замените на соответствующий шаблон, если есть HTML_MR
+    fields: [
+      ...COMMON_FIELDS_TOP,
+      
+      { section: 'Основная информация', key: 'act_number', label: 'Номер акта', type: 'string', required: true },
+      { section: 'Основная информация', key: 'act_date', label: 'Дата акта', type: 'date', required: true },
+      
+      { section: 'Исполнитель', key: 'technician_name', label: 'ФИО', type: 'string', required: true },
+      { section: 'Исполнитель', key: 'technician_position', label: 'Должность', type: 'string', required: true },
+      
+      { section: 'Владелец', key: 'owner_name', label: 'ФИО владельца', type: 'string', required: true },
+      { section: 'Владелец', key: 'owner_phone', label: 'Телефон', type: 'string' },
+      
+      { section: 'Объект', key: 'object_type', label: 'Тип объекта', type: 'select', required: true, options: ['Жилой дом', 'Гараж', 'Баня', 'Другое'] },
+      { section: 'Объект', key: 'object_address', label: 'Адрес', type: 'address', required: true },
+      
+      { section: 'Снятый счетчик', key: 'removal_date', label: 'Дата снятия', type: 'date', required: true },
+      { section: 'Снятый счетчик', key: 'removed_meter_model', label: 'Модель', type: 'string', required: true },
+      { section: 'Снятый счетчик', key: 'removed_meter_number', label: 'Номер', type: 'string', required: true },
+      { section: 'Снятый счетчик', key: 'removed_meter_reading', label: 'Показания', type: 'string', required: true },
+      { section: 'Снятый счетчик', key: 'removed_seal_number', label: 'Номер пломбы', type: 'string' },
+      
+      { section: 'Установленный счетчик', key: 'installation_date', label: 'Дата установки', type: 'date', required: true },
+      { section: 'Установленный счетчик', key: 'installed_meter_model', label: 'Модель', type: 'string', required: true },
+      { section: 'Установленный счетчик', key: 'installed_meter_number', label: 'Номер', type: 'string', required: true },
+      { section: 'Установленный счетчик', key: 'installed_meter_reading', label: 'Показания', type: 'string', required: true },
+      { section: 'Установленный счетчик', key: 'installed_seal_number', label: 'Номер пломбы', type: 'string' },
+      
+      { section: 'Подписи', key: 'technician_signature', label: 'Подпись техника', type: 'signature', required: true },
+      { section: 'Подписи', key: 'owner_signature', label: 'Подпись владельца', type: 'signature', required: true },
+    ],
+  },
+
+  actsf: {
+    type: 'actsf',
+    name: 'Акт срыва/установки пломбы',
+    htmlTemplate: HTML_SF, // Замените на соответствующий шаблон, если есть HTML_SF
+    fields: [
+      ...COMMON_FIELDS_TOP,
+      
+      { section: 'Основная информация', key: 'act_number', label: 'Номер акта', type: 'string', required: true },
+      { section: 'Основная информация', key: 'act_date', label: 'Дата акта', type: 'date', required: true },
+      
+      { section: 'Исполнители', key: 'technician1_name', label: 'ФИО слесаря 1', type: 'string', required: true },
+      { section: 'Исполнители', key: 'technician2_name', label: 'ФИО слесаря 2', type: 'string' },
+      { section: 'Исполнители', key: 'technician_position', label: 'Должность', type: 'string', required: true },
+      
+      { section: 'Владелец', key: 'owner_name', label: 'ФИО владельца', type: 'string', required: true },
+      { section: 'Владелец', key: 'owner_phone', label: 'Телефон', type: 'string', required: true },
+      
+      { section: 'Объект', key: 'object_type', label: 'Тип объекта', type: 'select', required: true, options: ['Жилой дом', 'Гараж', 'Баня', 'Другое'] },
+      { section: 'Объект', key: 'street', label: 'Улица', type: 'string', required: true },
+      { section: 'Объект', key: 'house', label: 'Дом', type: 'string', required: true },
+      { section: 'Объект', key: 'apartment', label: 'Квартира', type: 'string' },
+      
+      { section: 'Сорванная пломба', key: 'break_date', label: 'Дата срыва', type: 'date', required: true },
+      { section: 'Сорванная пломба', key: 'break_seal_number', label: 'Номер пломбы', type: 'string', required: true },
+      { section: 'Сорванная пломба', key: 'break_seal_color', label: 'Цвет пломбы', type: 'string' },
+      { section: 'Сорванная пломба', key: 'break_meter_model', label: 'Модель счетчика', type: 'string', required: true },
+      { section: 'Сорванная пломба', key: 'break_meter_number', label: 'Номер счетчика', type: 'string', required: true },
+      { section: 'Сорванная пломба', key: 'break_meter_reading', label: 'Показания', type: 'string', required: true },
+      { section: 'Сорванная пломба', key: 'reason', label: 'Причина срыва', type: 'string', required: true },
+      
+      { section: 'Установленная пломба', key: 'install_date', label: 'Дата установки', type: 'date', required: true },
+      { section: 'Установленная пломба', key: 'install_seal_number', label: 'Номер пломбы', type: 'string', required: true },
+      { section: 'Установленная пломба', key: 'install_seal_color', label: 'Цвет пломбы', type: 'string' },
+      { section: 'Установленная пломба', key: 'install_meter_model', label: 'Модель счетчика', type: 'string', required: true },
+      { section: 'Установленная пломба', key: 'install_meter_number', label: 'Номер счетчика', type: 'string', required: true },
+      { section: 'Установленная пломба', key: 'install_meter_reading', label: 'Показания', type: 'string', required: true },
+      
+      { section: 'Подписи', key: 'technician1_signature', label: 'Подпись слесаря 1', type: 'signature', required: true },
+      { section: 'Подписи', key: 'technician2_signature', label: 'Подпись слесаря 2', type: 'signature' },
+      { section: 'Подписи', key: 'owner_signature', label: 'Подпись владельца', type: 'signature', required: true },
+    ],
+  },
+
+  actsge: {
+    type: 'actsge',
+    name: 'Акт отключения бытового газоиспользующего оборудования',
+    htmlTemplate: HTML_SGE, // Замените на соответствующий шаблон, если есть HTML_SGE
+    fields: [
+      ...COMMON_FIELDS_TOP,
+      
+      { section: 'Основная информация', key: 'act_number', label: 'Номер акта', type: 'string', required: true },
+      { section: 'Основная информация', key: 'act_date', label: 'Дата акта', type: 'date', required: true },
+      { section: 'Основная информация', key: 'personal_account', label: 'Лицевой счет', type: 'string', required: true },
+      
+      { section: 'Наряд-задание', key: 'work_order_number', label: 'Номер наряда', type: 'string', required: true },
+      { section: 'Наряд-задание', key: 'work_order_date', label: 'Дата наряда', type: 'date', required: true },
+      { section: 'Наряд-задание', key: 'debt_reason', label: 'Причина отключения', type: 'string', required: true },
+      
+      { section: 'Адрес объекта', key: 'apartment_number', label: 'Квартира №', type: 'string', required: true },
+      { section: 'Адрес объекта', key: 'house_number', label: 'Дом №', type: 'string', required: true },
+      { section: 'Адрес объекта', key: 'building_number', label: 'Корпус', type: 'string', required: true },
+      { section: 'Адрес объекта', key: 'street_name', label: 'Улица', type: 'string', required: true },
+      { section: 'Адрес объекта', key: 'city_district', label: 'Район города', type: 'string', required: true },
+      
+      { section: 'Заказчик', key: 'customer_name', label: 'ФИО заказчика', type: 'string', required: true },
+      
+      { section: 'Представитель УГРС', key: 'representative_position', label: 'Должность', type: 'string', required: true },
+      { section: 'Представитель УГРС', key: 'representative_name', label: 'ФИО', type: 'string', required: true },
+      
+      { section: 'Отключение оборудования', key: 'disconnection_time_hours', label: 'Время отключения (часы)', type: 'string', required: true },
+      { section: 'Отключение оборудования', key: 'disconnection_time_minutes', label: 'Время отключения (минуты)', type: 'string', required: true },
+      { section: 'Отключение оборудования', key: 'equipment_description', label: 'Описание оборудования', type: 'string', required: true },
+      { section: 'Отключение оборудования', key: 'equipment_count', label: 'Количество', type: 'string', required: true },
+      { section: 'Отключение оборудования', key: 'disconnection_method', label: 'Способ отключения', type: 'string', required: true },
+      { section: 'Отключение оборудования', key: 'seal_number', label: 'Номер пломбы', type: 'string', required: true },
+      
+      { section: 'Подключение оборудования', key: 'reconnection_date', label: 'Дата подключения', type: 'date' },
+      { section: 'Подключение оборудования', key: 'reconnection_representative', label: 'Представитель при подключении', type: 'string' },
+      { section: 'Подключение оборудования', key: 'reconnection_basis', label: 'Основание для подключения', type: 'string' },
+      
+      { section: 'Подписи', key: 'representative_signature', label: 'Подпись представителя', type: 'signature', required: true },
+      { section: 'Подписи', key: 'customer_signature', label: 'Подпись заказчика', type: 'signature', required: true },
+      { section: 'Подписи', key: 'reconnection_representative_signature', label: 'Подпись при подключении', type: 'signature' },
+    ],
+  },
 
   work_completed: {
-    type: 'work_completed',
+    type: 'actwc',
     name: 'Акт выполненных работ',
-    htmlTemplate: HTML_WORK_COMPLETED,
+    htmlTemplate: HTML_WC,
     fields: [
       { section: 'Реквизиты', key: 'act_number', label: 'Номер акта', type: 'text', required: true },
       { section: 'Реквизиты', key: 'act_date', label: 'Дата', type: 'date', required: true },
 
-      { section: 'Данные', key: 'owner_name', label: 'Владелец объекта', type: 'text', required: true },
-      { section: 'Данные', key: 'owner_phone', label: 'Телефон владельца', type: 'text', required: false },
-      { section: 'Данные', key: 'object_address', label: 'Адрес объекта', type: 'address', required: true },
-      { section: 'Данные', key: 'lic', label: 'Лицевой счёт', type: 'text', required: false },
+      { section: 'Данные',    key: 'owner_name', label: 'Владелец объекта', type: 'text', required: true },
+      { section: 'Данные',    key: 'owner_phone', label: 'Телефон владельца', type: 'text', required: false },
+      { section: 'Данные',    key: 'object_address', label: 'Адрес объекта', type: 'address', required: true },
+      { section: 'Данные',    key: 'lic', label: 'Лицевой счёт', type: 'text', required: false },
 
-      { section: 'Работы', key: 'work_description', label: 'Перечень выполненных работ', type: 'textarea', required: true },
-      { section: 'Работы', key: 'amount', label: 'Стоимость (руб.)', type: 'number', required: false },
-      { section: 'Работы', key: 'warranty', label: 'Гарантия / примечание', type: 'text', required: false },
-      { section: 'Работы', key: 'photo_result', label: 'Фото результата', type: 'image', required: false },
+      { section: 'Работы',    key: 'work_description', label: 'Перечень выполненных работ', type: 'textarea', required: true },
+      { section: 'Работы',    key: 'amount', label: 'Стоимость (руб.)', type: 'number', required: false },
+      { section: 'Работы',    key: 'warranty', label: 'Гарантия / примечание', type: 'text', required: false },
+      { section: 'Работы',    key: 'photo_result', label: 'Фото результата', type: 'image', required: false },
 
-      { section: 'Подписи', key: 'technician_name', label: 'ФИО слесаря', type: 'text', required: true },
-      { section: 'Подписи', key: 'technician_signature', label: 'Подпись слесаря', type: 'signature', required: false },
-      { section: 'Подписи', key: 'owner_signature', label: 'Подпись владельца', type: 'signature', required: false },
+      { section: 'Подписи',   key: 'technician_name', label: 'ФИО слесаря', type: 'text', required: true },
+      { section: 'Подписи',   key: 'technician_signature', label: 'Подпись слесаря', type: 'signature', required: false },
+      { section: 'Подписи',   key: 'owner_signature', label: 'Подпись владельца', type: 'signature', required: false },
     ],
   },
+
 };
 
 export const ACT_TEMPLATES = ACT_TEMPLATES_REGISTRY;

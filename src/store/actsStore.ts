@@ -24,15 +24,29 @@ const withoutDetails = (obj: AnyObj): AnyObj => {
   return rest;
 };
 
-/**
- * Служебные ключи акта (мета), которые НЕ должны попадать внутрь details.
- * Сервер хранит их отдельными колонками.
- */
+const toDetailsObject = (details: any): AnyObj => {
+  if (!details) return {};
+  if (Array.isArray(details)) {
+    const firstObj = details.find((x) => isPlainObject(x));
+    return (firstObj as AnyObj) || {};
+  }
+  if (isPlainObject(details)) {
+    // Иногда сервер/клиент возвращает объект вида: { 0: {..поля..}, id, type, ... }
+    const maybe0 = (details as any)['0'];
+    if (isPlainObject(maybe0)) {
+      const rest: AnyObj = { ...(details as AnyObj) };
+      delete (rest as any)['0'];
+      return { ...(maybe0 as AnyObj), ...rest };
+    }
+    return details as AnyObj;
+  }
+  return {};
+};
+
 const META_KEYS = new Set([
   'id',
   'type',
   'invoice_id',
-  'act_id',
   'act_number',
   'act_date',
   'created_at',
@@ -40,70 +54,14 @@ const META_KEYS = new Set([
   'status',
   'title',
   'document_scan_path',
-  'document_scan',
   'details',
-  'token',
 ]);
 
-const isNumericKey = (k: string) => /^\d+$/.test(k);
-
-/**
- * Убираем мусорные числовые ключи "0", "1" и т.п.
- * Они появляются, когда массив случайно расплющили через {...arr}.
- */
-const stripNumericKeysShallow = (obj: AnyObj): AnyObj => {
+const stripMetaKeys = (obj: AnyObj): AnyObj => {
   const out: AnyObj = {};
   for (const [k, v] of Object.entries(obj || {})) {
-    if (isNumericKey(k)) continue;
-    out[k] = v;
-  }
-  return out;
-};
-
-/**
- * Достаём объект details из разных форматов:
- * - массив [{...}] (часто так приходит с сервера)
- * - объект с ключами "0": {...}
- * - обычный объект {...}
- */
-const extractDetailsObject = (rawDetails: any): AnyObj => {
-  // массив -> склеиваем элементы
-  if (Array.isArray(rawDetails)) {
-    return rawDetails.reduce((acc: AnyObj, item: any) => {
-      if (isPlainObject(item)) return { ...acc, ...item };
-      return acc;
-    }, {});
-  }
-
-  // объект
-  if (isPlainObject(rawDetails)) {
-    // объект с числовыми ключами "0": {...}
-    const numericKeys = Object.keys(rawDetails).filter(isNumericKey);
-    if (numericKeys.length > 0) {
-      return numericKeys
-        .sort((a, b) => Number(a) - Number(b))
-        .reduce((acc: AnyObj, k: string) => {
-          const v = (rawDetails as AnyObj)[k];
-          if (isPlainObject(v)) return { ...acc, ...v };
-          return acc;
-        }, {});
-    }
-
-    return rawDetails;
-  }
-
-  return {};
-};
-
-/**
- * Чистим details: удаляем мета-ключи, числовые ключи и undefined.
- */
-const cleanDetails = (details: AnyObj): AnyObj => {
-  const out: AnyObj = {};
-  for (const [k, v] of Object.entries(details || {})) {
-    if (v === undefined) continue;
-    if (isNumericKey(k)) continue;
     if (META_KEYS.has(k)) continue;
+    if (k === '0') continue;
     out[k] = v;
   }
   return out;
@@ -116,32 +74,53 @@ const cleanDetails = (details: AnyObj): AnyObj => {
 const normalizeActPayload = (actData: AnyObj): AnyObj => {
   const ts = nowIso();
 
-  // Иногда actData уже содержит мусорные ключи "0", "1"...
-  const cleanedAct = stripNumericKeysShallow(actData || {});
+  // 1) Забираем details в виде объекта (поддерживаем массивы и {0:{...}})
+  const detailsObj = toDetailsObject(actData?.details);
 
-  const base: AnyObj = {
-    // Не даём упасть SQL на NOT NULL
-    status: cleanedAct?.status || 'draft',
-    document_scan_path: cleanedAct?.document_scan_path ?? '',
-    title: cleanedAct?.title || cleanedAct?.type || 'Акт',
-    created_at: cleanedAct?.created_at || ts,
-    updated_at: ts,
+  // 2) Мета-данные: берем верхний уровень, а если нет — вытаскиваем из details
+  const id = actData?.id ?? detailsObj?.id;
+  const type = actData?.type ?? detailsObj?.type;
+  const invoice_id = actData?.invoice_id ?? detailsObj?.invoice_id;
+  const act_number = actData?.act_number ?? detailsObj?.act_number;
+  const act_date = actData?.act_date ?? detailsObj?.act_date;
+  const status = actData?.status ?? detailsObj?.status ?? 'draft';
+  const title = actData?.title ?? detailsObj?.title ?? type ?? 'Акт';
+  const document_scan_path = actData?.document_scan_path ?? detailsObj?.document_scan_path ?? '';
+  const created_at = actData?.created_at ?? detailsObj?.created_at ?? ts;
+
+  // 3) Поля формы могут приходить плоско (owner_name, mr1_model...) — собираем их в details.
+  //    Приоритет: то, что явно пришло в actData.details, должно побеждать плоские поля.
+  const fromFlat = stripMetaKeys(withoutDetails(actData));
+  const fromDetails = stripMetaKeys(detailsObj);
+  const details = stripUndefinedShallow({ ...fromFlat, ...fromDetails });
+
+  // 4) Совместимость с бэком: дублируем ключевые поля наверх, если они есть в details.
+  const up: AnyObj = {
+    lic: actData?.lic ?? details.lic,
+    owner_name: actData?.owner_name ?? details.owner_name,
+    owner_phone: actData?.owner_phone ?? details.owner_phone,
+    object_address: actData?.object_address ?? details.object_address,
+    technician_name: actData?.technician_name ?? details.technician_name,
+    technician_position: actData?.technician_position ?? details.technician_position,
+    object_type: actData?.object_type ?? details.object_type,
   };
 
-  // 1) Пытаемся взять details из actData.details
-  const rawDetailsObj = extractDetailsObject(cleanedAct?.details);
-
-  // 2) Если details пустой — соберём его из полей акта (без мета),
-  //    потому что некоторые места шлют FLAT payload без details.
-  const fallbackDetails = withoutDetails(cleanedAct);
-  const combinedDetails = Object.keys(rawDetailsObj).length > 0 ? rawDetailsObj : fallbackDetails;
-  const details = cleanDetails(stripUndefinedShallow(stripNumericKeysShallow(combinedDetails)));
-
-  // Удаляем undefined на верхнем уровне, чтобы не слать "undefined" в JSON
-  // И гарантируем, что details — объект, а не массив.
   return stripUndefinedShallow({
-    ...cleanedAct,
-    ...base,
+    ...stripMetaKeys(actData),
+    ...up,
+
+    id,
+    type,
+    invoice_id,
+    act_number,
+    act_date,
+
+    status,
+    title,
+    document_scan_path,
+    created_at,
+    updated_at: ts,
+
     details,
   });
 };

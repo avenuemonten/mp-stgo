@@ -409,24 +409,25 @@ export const ACT_TEMPLATES_REGISTRY: Record<string, ActTemplateConfig> = {
   },
 
   work_completed: {
-    type: 'actwc',
+    // ВАЖНО: тип должен совпадать с бэкендом и тем, что используется в UI (плюс-меню, финальная страница)
+    type: 'work_completed',
     name: 'Акт выполненных работ',
     htmlTemplate: HTML_WC,
     fields: [
-      { section: 'Реквизиты', key: 'act_number', label: 'Номер акта', type: 'text', required: true },
+      { section: 'Реквизиты', key: 'act_number', label: 'Номер акта', type: 'string', required: true },
       { section: 'Реквизиты', key: 'act_date', label: 'Дата', type: 'date', required: true },
 
-      { section: 'Данные',    key: 'owner_name', label: 'Владелец объекта', type: 'text', required: true },
-      { section: 'Данные',    key: 'owner_phone', label: 'Телефон владельца', type: 'text', required: false },
+      { section: 'Данные',    key: 'owner_name', label: 'Владелец объекта', type: 'string', required: true },
+      { section: 'Данные',    key: 'owner_phone', label: 'Телефон владельца', type: 'string', required: false },
       { section: 'Данные',    key: 'object_address', label: 'Адрес объекта', type: 'address', required: true },
-      { section: 'Данные',    key: 'lic', label: 'Лицевой счёт', type: 'text', required: false },
+      { section: 'Данные',    key: 'lic', label: 'Лицевой счёт', type: 'string', required: false },
 
       { section: 'Работы',    key: 'work_description', label: 'Перечень выполненных работ', type: 'textarea', required: true },
       { section: 'Работы',    key: 'amount', label: 'Стоимость (руб.)', type: 'number', required: false },
-      { section: 'Работы',    key: 'warranty', label: 'Гарантия / примечание', type: 'text', required: false },
+      { section: 'Работы',    key: 'warranty', label: 'Гарантия / примечание', type: 'string', required: false },
       { section: 'Работы',    key: 'photo_result', label: 'Фото результата', type: 'image', required: false },
 
-      { section: 'Подписи',   key: 'technician_name', label: 'ФИО слесаря', type: 'text', required: true },
+      { section: 'Подписи',   key: 'technician_name', label: 'ФИО слесаря', type: 'string', required: true },
       { section: 'Подписи',   key: 'technician_signature', label: 'Подпись слесаря', type: 'signature', required: false },
       { section: 'Подписи',   key: 'owner_signature', label: 'Подпись владельца', type: 'signature', required: false },
     ],

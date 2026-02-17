@@ -33,28 +33,6 @@ type Params = {
 
 const todayYmd = () => new Date().toISOString().split('T')[0];
 
-const toDetailsObject = (raw: any): Record<string, any> => {
-  if (Array.isArray(raw)) {
-    return (raw[0] && typeof raw[0] === 'object') ? raw[0] : {};
-  }
-  if (raw && typeof raw === 'object') {
-    const keys = Object.keys(raw);
-    const numericKeys = keys.filter((k) => /^\d+$/.test(k));
-    if (numericKeys.length > 0) {
-      return numericKeys
-        .sort((a, b) => Number(a) - Number(b))
-        .reduce((acc: any, k) => {
-          const v = (raw as any)[k];
-          if (v && typeof v === 'object' && !Array.isArray(v)) return { ...acc, ...v };
-          return acc;
-        }, {});
-    }
-    return raw as any;
-  }
-  return {};
-};
-
-
 export const ActEditPage: React.FC = () => {
   const { id, actId: actIdParam, type: typeParam } = useParams<Params>();
   const history = useHistory();
@@ -181,7 +159,7 @@ export const ActEditPage: React.FC = () => {
     if (!isNew) {
       if (!currentAct || Object.keys(currentAct).length === 0) return null;
 
-      const details = toDetailsObject(currentAct.details);
+      const details = currentAct.details || {};
       return {
         ...currentAct,
         ...details,
@@ -202,7 +180,7 @@ export const ActEditPage: React.FC = () => {
     const draft = currentAct; // после loadActDraft сюда приходит черновик с act_number
     if (!draft || Object.keys(draft).length === 0) return null;
 
-    const d = toDetailsObject(draft.details);
+    const d = draft.details || {};
 
     const merged: any = {
       ...draft,

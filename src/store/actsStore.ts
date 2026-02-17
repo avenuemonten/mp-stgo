@@ -25,28 +25,122 @@ const withoutDetails = (obj: AnyObj): AnyObj => {
 };
 
 /**
+ * Служебные ключи акта (мета), которые НЕ должны попадать внутрь details.
+ * Сервер хранит их отдельными колонками.
+ */
+const META_KEYS = new Set([
+  'id',
+  'type',
+  'invoice_id',
+  'act_id',
+  'act_number',
+  'act_date',
+  'created_at',
+  'updated_at',
+  'status',
+  'title',
+  'document_scan_path',
+  'document_scan',
+  'details',
+  'token',
+]);
+
+const isNumericKey = (k: string) => /^\d+$/.test(k);
+
+/**
+ * Убираем мусорные числовые ключи "0", "1" и т.п.
+ * Они появляются, когда массив случайно расплющили через {...arr}.
+ */
+const stripNumericKeysShallow = (obj: AnyObj): AnyObj => {
+  const out: AnyObj = {};
+  for (const [k, v] of Object.entries(obj || {})) {
+    if (isNumericKey(k)) continue;
+    out[k] = v;
+  }
+  return out;
+};
+
+/**
+ * Достаём объект details из разных форматов:
+ * - массив [{...}] (часто так приходит с сервера)
+ * - объект с ключами "0": {...}
+ * - обычный объект {...}
+ */
+const extractDetailsObject = (rawDetails: any): AnyObj => {
+  // массив -> склеиваем элементы
+  if (Array.isArray(rawDetails)) {
+    return rawDetails.reduce((acc: AnyObj, item: any) => {
+      if (isPlainObject(item)) return { ...acc, ...item };
+      return acc;
+    }, {});
+  }
+
+  // объект
+  if (isPlainObject(rawDetails)) {
+    // объект с числовыми ключами "0": {...}
+    const numericKeys = Object.keys(rawDetails).filter(isNumericKey);
+    if (numericKeys.length > 0) {
+      return numericKeys
+        .sort((a, b) => Number(a) - Number(b))
+        .reduce((acc: AnyObj, k: string) => {
+          const v = (rawDetails as AnyObj)[k];
+          if (isPlainObject(v)) return { ...acc, ...v };
+          return acc;
+        }, {});
+    }
+
+    return rawDetails;
+  }
+
+  return {};
+};
+
+/**
+ * Чистим details: удаляем мета-ключи, числовые ключи и undefined.
+ */
+const cleanDetails = (details: AnyObj): AnyObj => {
+  const out: AnyObj = {};
+  for (const [k, v] of Object.entries(details || {})) {
+    if (v === undefined) continue;
+    if (isNumericKey(k)) continue;
+    if (META_KEYS.has(k)) continue;
+    out[k] = v;
+  }
+  return out;
+};
+
+/**
  * Базовая нормализация payload под бэкенд mp_set_act.
  * В старом приложении эти поля всегда присутствовали.
  */
 const normalizeActPayload = (actData: AnyObj): AnyObj => {
   const ts = nowIso();
 
+  // Иногда actData уже содержит мусорные ключи "0", "1"...
+  const cleanedAct = stripNumericKeysShallow(actData || {});
+
   const base: AnyObj = {
     // Не даём упасть SQL на NOT NULL
-    status: actData?.status || 'draft',
-    document_scan_path: actData?.document_scan_path ?? '',
-    title: actData?.title || actData?.type || 'Акт',
-    created_at: actData?.created_at || ts,
+    status: cleanedAct?.status || 'draft',
+    document_scan_path: cleanedAct?.document_scan_path ?? '',
+    title: cleanedAct?.title || cleanedAct?.type || 'Акт',
+    created_at: cleanedAct?.created_at || ts,
     updated_at: ts,
   };
 
-  // details: в старом это был «полный объект формы»
-  const detailsFromAct = isPlainObject(actData?.details) ? actData.details : null;
-  const details = stripUndefinedShallow(detailsFromAct || withoutDetails(actData));
+  // 1) Пытаемся взять details из actData.details
+  const rawDetailsObj = extractDetailsObject(cleanedAct?.details);
+
+  // 2) Если details пустой — соберём его из полей акта (без мета),
+  //    потому что некоторые места шлют FLAT payload без details.
+  const fallbackDetails = withoutDetails(cleanedAct);
+  const combinedDetails = Object.keys(rawDetailsObj).length > 0 ? rawDetailsObj : fallbackDetails;
+  const details = cleanDetails(stripUndefinedShallow(stripNumericKeysShallow(combinedDetails)));
 
   // Удаляем undefined на верхнем уровне, чтобы не слать "undefined" в JSON
+  // И гарантируем, что details — объект, а не массив.
   return stripUndefinedShallow({
-    ...actData,
+    ...cleanedAct,
     ...base,
     details,
   });
